@@ -1,0 +1,21 @@
+
+import React from 'react';
+import { Link } from 'react-router-dom';
+import StarRating from './StarRating';
+
+const ProductCard = ({ product, onClick }) => {
+  const { id, title, price, image, rating } = product;
+
+  return (
+    <div className="product-card" onClick={() => onClick(product)}>
+      <img src={image} alt={title} className="product-image" />
+      <div className="product-content">
+        <h3 className="product-title">{title.length > 50 ? `${title.substring(0, 50)}...` : title}</h3>
+        <p className="product-price">${price.toFixed(2)}</p>
+        <StarRating rating={rating.rate} count={rating.count} />
+      </div>
+    </div>
+  );
+};
+
+export default ProductCard;
