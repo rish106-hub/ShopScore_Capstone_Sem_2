@@ -55,14 +55,14 @@ npm run dev
 This project is built with:
 
 - Vite
-- TypeScript
+- JavaScript
 - React
 - shadcn-ui
-- Tailwind CSS
+- HTML , CSS 
 
 ## How can I deploy this project?
 
-Simply open [Lovable](https://lovable.dev/projects/78e0c12a-b9b3-4ac3-ba98-6b863a07714a) and click on Share -> Publish.
+
 
 ## Can I connect a custom domain to my Lovable project?
 
