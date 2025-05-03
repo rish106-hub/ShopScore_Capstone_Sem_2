@@ -1,7 +1,6 @@
 🛒 ShopScore
 
-A modern Product Reviews and Ratings System designed to help users make informed purchasing decisions by aggregating authentic reviews and scores. Built as part of a Web Application Programming capstone project.
-
+A modern Product Reviews and Ratings System made using basic knowledge of HTML , CSS , JavaScript and REACT with the help of GenAI as well. ShopScore is designed to help users make informed purchasing decisions by aggregating authentic reviews and scores. Built as part of a Web Application Programming capstone project for my college here at Newton School of Technology.
 ⸻
 
 🚀 Features
@@ -18,11 +17,7 @@ A modern Product Reviews and Ratings System designed to help users make informed
 
 Layer	Technologies
 Frontend	HTML, CSS, JavaScript (Vanilla/React)
-Backend	Node.js / Flask / Django (your choice)
-Database	MongoDB / PostgreSQL / SQLite
-Deployment	GitHub Pages / Render / Vercel
-
-
+Deployment	GitHub Pages and Vercel
 
 ⸻
 
@@ -36,28 +31,7 @@ cd shopscore
 npm install
 
 # 3. Run the project
-npm start
-
-# Or for Python (Flask):
-pip install -r requirements.txt
-python app.py
-
-
-
-⸻
-
-📂 Folder Structure
-
-shopscore/
-├── client/               # Frontend (React/HTML-CSS)
-├── server/               # Backend (API)
-├── database/             # DB models or migrations
-├── public/               # Static assets
-├── README.md
-└── package.json / app.py
-
-
-
+npm run dev
 ⸻
 
 🔮 Future Improvements
@@ -82,12 +56,6 @@ This project helped me:
 
 📬 Feedback
 
-Found a bug or have a feature request? Open an issue or email me at your.email@example.com.
-
-⸻
-
-🪪 License
-
-MIT License
+Found a bug or have a feature request? Open an issue or email me at rishavdewan10@gmail.com.
 
 ⸻
