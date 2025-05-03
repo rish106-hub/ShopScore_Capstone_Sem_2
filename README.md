@@ -1,73 +1,93 @@
-# Welcome to your Lovable project
+🛒 ShopScore
 
-## Project info
+A modern Product Reviews and Ratings System designed to help users make informed purchasing decisions by aggregating authentic reviews and scores. Built as part of a Web Application Programming capstone project.
 
-**URL**: https://lovable.dev/projects/78e0c12a-b9b3-4ac3-ba98-6b863a07714a
+⸻
 
-## How can I edit this code?
+🚀 Features
+	•	📝 Add and view product reviews
+	•	⭐ Rate products from 1 to 5 stars
+	•	📊 Calculate average ratings in real-time
+	•	🔍 Search and filter products by rating
+	•	🧾 Clean UI for displaying product cards with reviews
+	•	👤 User authentication system (optional extension)
 
-There are several ways of editing your application.
+⸻
 
-**Use Lovable**
+💡 Tech Stack
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/78e0c12a-b9b3-4ac3-ba98-6b863a07714a) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- JavaScript
-- React
-- shadcn-ui
-- HTML , CSS 
-
-## How can I deploy this project?
+Layer	Technologies
+Frontend	HTML, CSS, JavaScript (Vanilla/React)
+Backend	Node.js / Flask / Django (your choice)
+Database	MongoDB / PostgreSQL / SQLite
+Deployment	GitHub Pages / Render / Vercel
 
 
 
-## Can I connect a custom domain to my Lovable project?
+⸻
 
-Yes, you can!
+🛠️ Installation & Usage
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+# 1. Clone the repo
+git clone https://github.com/your-username/shopscore.git
+cd shopscore
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+# 2. Install dependencies (if using Node/React)
+npm install
+
+# 3. Run the project
+npm start
+
+# Or for Python (Flask):
+pip install -r requirements.txt
+python app.py
+
+
+
+⸻
+
+📂 Folder Structure
+
+shopscore/
+├── client/               # Frontend (React/HTML-CSS)
+├── server/               # Backend (API)
+├── database/             # DB models or migrations
+├── public/               # Static assets
+├── README.md
+└── package.json / app.py
+
+
+
+⸻
+
+🔮 Future Improvements
+	•	Admin dashboard to monitor reviews
+	•	Sentiment analysis on reviews (AI integration)
+	•	Verified buyer check before review submission
+	•	Mobile app version
+
+⸻
+
+🧠 Learnings
+
+This project helped me:
+
+	•	Understand full-stack application architecture
+	•	Work with state management and routing
+	•	Practice RESTful API design
+	•	Learn CRUD operations with databases
+	•	Build an actual deployable MVP
+
+⸻
+
+📬 Feedback
+
+Found a bug or have a feature request? Open an issue or email me at your.email@example.com.
+
+⸻
+
+🪪 License
+
+MIT License
+
+⸻
