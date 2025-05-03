@@ -27,9 +27,9 @@ const Footer = () => {
           <div className="footer-column">
             <h3 className="footer-title">Contact</h3>
             <ul className="footer-links">
-              <li className="footer-link">Email: info@shopscore.com</li>
-              <li className="footer-link">Phone: (123) 456-7890</li>
-              <li className="footer-link">Address: 123 Main St, New York, NY</li>
+              <li className="footer-link">Email: rishavdewan10@gmail.com</li>
+              <li className="footer-link">Phone: 9749452397</li>
+              <li className="footer-link">Address: Rishihood University</li>
             </ul>
           </div>
         </div>

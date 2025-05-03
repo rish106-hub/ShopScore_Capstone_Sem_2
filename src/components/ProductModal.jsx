@@ -1,8 +1,10 @@
-
 import React from 'react';
 import StarRating from './StarRating';
+import { useCart } from '../context/CartContext';
 
 const ProductModal = ({ product, onClose }) => {
+  const { addToCart } = useCart();
+
   if (!product) return null;
 
   const { title, price, description, image, rating } = product;
@@ -24,7 +26,7 @@ const ProductModal = ({ product, onClose }) => {
               <p className="product-detail-price">${price.toFixed(2)}</p>
               <p className="product-detail-description">{description}</p>
               
-              <button className="btn">Add to Cart</button>
+              <button className="btn" onClick={() => addToCart(product)}>Add to Cart</button>
             </div>
           </div>
           
