@@ -16,7 +16,7 @@ const About = () => {
             <div className="about-content">
               <h2>Our History</h2>
               <p>
-                ShopScore was founded in 2025 as a capstone project for the Web Applications Programming course. 
+                ShopScore was created in 2025 as a capstone project for the Web Applications Programming course. 
                 The goal was to create a platform where users could find honest reviews and ratings for products 
                 they're interested in purchasing.
               </p>
@@ -52,17 +52,17 @@ const About = () => {
                   alt="Creator" 
                   className="creator-image" 
                 />
-                <h3 className="creator-name">John Developer</h3>
-                <p className="creator-role">Founder & Lead Developer</p>
+                <h3 className="creator-name">RISHAV DEWAN</h3>
+                <p className="creator-role">Student</p>
                 <p>
                   A passionate web developer with a focus on creating user-friendly and accessible applications. 
                   ShopScore was created as part of a capstone project for the Web Applications Programming course.
                 </p>
                 
                 <div className="social-links">
-                  <a href="https://github.com/" className="social-link" target="_blank" rel="noopener noreferrer">GH</a>
-                  <a href="https://linkedin.com/" className="social-link" target="_blank" rel="noopener noreferrer">IN</a>
-                  <a href="https://twitter.com/" className="social-link" target="_blank" rel="noopener noreferrer">TW</a>
+                  <a href="https://github.com/rish106-hub" className="social-link" target="_blank" rel="noopener noreferrer">GH</a>
+                  <a href="https://www.linkedin.com/in/rishav-dewan/" className="social-link" target="_blank" rel="noopener noreferrer">IN</a>
+                  <a href="https://www.instagram.com/rishav_dewan/" className="social-link" target="_blank" rel="noopener noreferrer">IG</a>
                 </div>
               </div>
             </div>
