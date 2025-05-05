@@ -1,5 +1,4 @@
 
-// Fake Store API Service
 
 const BASE_URL = 'https://fakestoreapi.com';
 
@@ -28,9 +27,6 @@ export const fetchProductById = async (id) => {
     return null;
   }
 };
-
-// Normally we would POST the review to the server,
-// but since we're just simulating, we'll return a mock success response
 export const submitReview = async (reviewData) => {
   // Simulate API call
   return new Promise((resolve) => {
