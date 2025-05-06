@@ -1,6 +1,7 @@
 import React from 'react';
 import StarRating from './StarRating';
 import { useCart } from '../context/CartContext';
+import { getFormattedINRPrice } from '../utils/currency';
 
 const ProductModal = ({ product, onClose }) => {
   const { addToCart } = useCart();
@@ -23,7 +24,7 @@ const ProductModal = ({ product, onClose }) => {
             <div className="product-detail-content">
               <h2 className="product-detail-title">{title}</h2>
               <StarRating rating={rating.rate} count={rating.count} />
-              <p className="product-detail-price">${price.toFixed(2)}</p>
+              <p className="product-detail-price">{getFormattedINRPrice(price)}</p>
               <p className="product-detail-description">{description}</p>
               
               <button className="btn" onClick={() => addToCart(product)}>Add to Cart</button>
