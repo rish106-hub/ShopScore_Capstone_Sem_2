@@ -28,7 +28,6 @@ export const fetchProductById = async (id) => {
   }
 };
 export const submitReview = async (reviewData) => {
-  // Simulate API call
   return new Promise((resolve) => {
     setTimeout(() => {
       console.log('Review submitted:', reviewData);
