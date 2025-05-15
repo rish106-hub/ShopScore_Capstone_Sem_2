@@ -37,8 +37,6 @@ const SubmitReview = () => {
       ...formData,
       [name]: value
     });
-    
-    // Clear error when user types
     if (formErrors[name]) {
       setFormErrors({
         ...formErrors,

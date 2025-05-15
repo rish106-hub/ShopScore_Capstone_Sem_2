@@ -1,9 +1,12 @@
 
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { currentUser, logout } = useAuth();
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -32,6 +35,24 @@ const Navbar = () => {
             <li className="nav-item">
               <Link to="/about" className="nav-link">About</Link>
             </li>
+            {currentUser ? (
+              <li className="nav-item">
+                <button 
+                  onClick={() => {
+                    logout();
+                    navigate('/login');
+                  }} 
+                  className="nav-link logout-btn"
+                  style={{ backgroundColor: 'blue', color: 'white', border: 'none', padding: '8px 16px', borderRadius: '4px', cursor: 'pointer' }}
+                >
+                  Logout
+                </button>
+              </li>
+            ) : (
+              <li className="nav-item">
+                <Link to="/login" className="nav-link">Login</Link>
+              </li>
+            )}
           </ul>
         </nav>
       </div>
