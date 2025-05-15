@@ -1,0 +1,31 @@
+.rating-input {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.rating-input input[type="radio"] {
+  display: none;
+}
+
+.rating-input label {
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: #ddd;
+  transition: color 0.2s ease-in-out;
+}
+
+.rating-input label:hover,
+.rating-input label:hover ~ label,
+.rating-input input[type="radio"]:checked ~ label {
+  color: #ffd700;
+}
+
+.rating-input i {
+  font-style: normal;
+}
+
+.rating-input i:before {
+  content: '★';
+}

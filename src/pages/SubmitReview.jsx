@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { fetchAllProducts, submitReview } from '../api/productApi';
+import '../styles/rating.css';
 
 const SubmitReview = () => {
   const navigate = useNavigate();
@@ -173,22 +174,21 @@ const SubmitReview = () => {
                   </div>
                   
                   <div className="form-group">
-                    <label className="form-label">Rating</label>
-                    <div className="rating-input">
-                      {[5, 4, 3, 2, 1].map(star => (
-                        <React.Fragment key={star}>
-                          <input
-                            type="radio"
-                            id={`star${star}`}
-                            name="rating"
-                            value={star}
-                            checked={formData.rating === star}
-                            onChange={() => handleRatingChange(star)}
-                          />
-                          <label htmlFor={`star${star}`}><i className="fas fa-star"></i></label>
-                        </React.Fragment>
+                    <label htmlFor="rating" className="form-label">Rating</label>
+                    <select
+                      id="rating"
+                      name="rating"
+                      className="form-select"
+                      value={formData.rating}
+                      onChange={(e) => handleRatingChange(Number(e.target.value))}
+                    >
+                      <option value="0">-- Select a rating --</option>
+                      {[5, 4, 3, 2, 1].map(rating => (
+                        <option key={rating} value={rating}>
+                          {rating} star{rating !== 1 ? 's' : ''}
+                        </option>
                       ))}
-                    </div>
+                    </select>
                     {formErrors.rating && <div style={{ color: 'var(--error-color)', fontSize: '14px', marginTop: '5px' }}>{formErrors.rating}</div>}
                   </div>
                   
