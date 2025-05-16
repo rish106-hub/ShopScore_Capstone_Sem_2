@@ -72,7 +72,7 @@ const Home = () => {
             <div className="products-grid">
               <div className="review-item">
                 <div className="review-header">
-                  <span className="reviewer-name">Michael Johnson</span>
+                  <span className="reviewer-name">Debasish Karan</span>
                   <span className="review-date">March 12, 2023</span>
                 </div>
                 <p className="review-text">"ShopScore helped me find the perfect laptop. The reviews were detailed and accurate!"</p>
@@ -80,7 +80,7 @@ const Home = () => {
               
               <div className="review-item">
                 <div className="review-header">
-                  <span className="reviewer-name">Sarah Williams</span>
+                  <span className="reviewer-name">Atanu Adhikari</span>
                   <span className="review-date">February 28, 2023</span>
                 </div>
                 <p className="review-text">"I love how easy it is to browse products and check ratings. This site is a game-changer!"</p>
@@ -88,10 +88,18 @@ const Home = () => {
               
               <div className="review-item">
                 <div className="review-header">
-                  <span className="reviewer-name">David Thompson</span>
+                  <span className="reviewer-name">Aatmaram Bhide</span>
                   <span className="review-date">January 15, 2023</span>
                 </div>
                 <p className="review-text">"The community here is fantastic. Honest reviews have saved me from making bad purchases multiple times."</p>
+              </div>
+
+              <div className="review-item">
+                <div className="review-header">
+                  <span className="reviewer-name">Jethalal Gada</span>
+                  <span className="review-date">April 5, 2023</span>
+                </div>
+                <p className="review-text">"The detailed product ratings helped me make informed decisions. I particularly love the user photos in reviews!"</p>
               </div>
             </div>
           </div>
