@@ -52,7 +52,6 @@ const SubmitReview = () => {
       rating
     });
     
-    // Clear error
     if (formErrors.rating) {
       setFormErrors({
         ...formErrors,
@@ -94,14 +93,12 @@ const SubmitReview = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Validate form
     const errors = validateForm();
     if (Object.keys(errors).length > 0) {
       setFormErrors(errors);
       return;
     }
     
-    // Submit form
     setIsSubmitting(true);
     
     try {
@@ -110,7 +107,6 @@ const SubmitReview = () => {
       if (response.success) {
         setSubmitSuccess(true);
         
-        // Reset form
         setFormData({
           productId: '',
           rating: 0,

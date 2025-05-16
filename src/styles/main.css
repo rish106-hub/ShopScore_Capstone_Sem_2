@@ -1,5 +1,4 @@
 
-/* ShopScore Main CSS */
 * {
   margin: 0;
   padding: 0;
@@ -78,7 +77,6 @@ img {
   background-color: #c0392b;
 }
 
-/* Header & Navigation */
 .header {
   background-color: white;
   box-shadow: var(--shadow);
@@ -128,7 +126,6 @@ img {
   color: var(--text-color);
 }
 
-/* Hero Section */
 .hero {
   background-color: white;
   padding: 60px 0;
@@ -152,7 +149,6 @@ img {
   margin-bottom: 30px;
 }
 
-/* Products Grid */
 .products-section {
   padding: 60px 0;
 }
@@ -228,7 +224,6 @@ img {
   font-size: 14px;
 }
 
-/* Search & Filter Bar */
 .search-filter {
   background: white;
   padding: 15px;
@@ -255,7 +250,6 @@ img {
   background-color: white;
 }
 
-/* Review Form */
 .review-form {
   max-width: 600px;
   margin: 0 auto;
@@ -313,7 +307,6 @@ img {
   color: #ffc107;
 }
 
-/* Footer */
 .footer {
   background-color: var(--dark-color);
   color: white;
@@ -363,7 +356,6 @@ img {
   color: #adb5bd;
 }
 
-/* Modal */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -402,7 +394,6 @@ img {
   padding: 30px;
 }
 
-/* Product Detail */
 .product-detail {
   display: flex;
   flex-wrap: wrap;
@@ -476,7 +467,6 @@ img {
   line-height: 1.6;
 }
 
-/* About Page */
 .about-section {
   padding: 60px 0;
 }
@@ -537,7 +527,6 @@ img {
   color: white;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .hero-title {
     font-size: 36px;

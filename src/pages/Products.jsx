@@ -29,7 +29,6 @@ const Products = () => {
   useEffect(() => {
     let result = products;
     
-    // Apply search filter
     if (searchTerm) {
       result = result.filter(product => 
         product.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -37,7 +36,6 @@ const Products = () => {
       );
     }
     
-    // Apply rating filter
     if (ratingFilter) {
       const minRating = parseInt(ratingFilter);
       result = result.filter(product => product.rating.rate >= minRating);
@@ -63,7 +61,6 @@ const Products = () => {
           <div className="container">
             <h1 className="section-title">All Products</h1>
             
-            {/* Search & Filter Bar */}
             <div className="search-filter">
               <input
                 type="text"
@@ -96,7 +93,6 @@ const Products = () => {
               </button>
             </div>
             
-            {/* Products Grid */}
             {isLoading ? (
               <p style={{ textAlign: 'center' }}>Loading products...</p>
             ) : filteredProducts.length === 0 ? (

@@ -33,7 +33,6 @@ const ProductModal = ({ product, onClose }) => {
           
           <div className="product-reviews">
             <h3 className="reviews-title">Customer Reviews</h3>
-            {/* This would be populated with actual reviews from an API */}
             <div className="review-item">
               <div className="review-header">
                 <span className="reviewer-name">John Doe</span>

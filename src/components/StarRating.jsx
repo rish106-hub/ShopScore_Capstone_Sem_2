@@ -8,8 +8,8 @@ const StarRating = ({ rating, count }) => {
       return <i key={index} className="star fas fa-star"></i>;
     }
     
-    // Half star
-    if (number - 0.5 <= rating) {
+    const hasHalfStar = rating % 1 !== 0;
+    if (hasHalfStar && number - 0.5 <= rating) {
       return <i key={index} className="star fas fa-star-half-alt"></i>;
     }
     return <i key={index} className="star far fa-star"></i>;

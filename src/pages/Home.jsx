@@ -14,7 +14,6 @@ const Home = () => {
     const getTopProducts = async () => {
       setIsLoading(true);
       const products = await fetchAllProducts();
-      // Sort by rating and get top 8
       const sorted = [...products].sort((a, b) => b.rating.rate - a.rating.rate).slice(0, 8);
       setTopProducts(sorted);
       setIsLoading(false);
@@ -28,7 +27,6 @@ const Home = () => {
       <Navbar />
       
       <main>
-        {/* Hero Section */}
         <section className="hero">
           <div className="container">
             <div className="hero-content">
@@ -39,7 +37,6 @@ const Home = () => {
           </div>
         </section>
         
-        {/* Top Rated Products */}
         <section className="products-section">
           <div className="container">
             <h2 className="section-title">Top Rated Products</h2>
@@ -64,7 +61,6 @@ const Home = () => {
           </div>
         </section>
         
-        {/* Testimonials */}
         <section className="products-section">
           <div className="container">
             <h2 className="section-title">What Our Users Say</h2>
