@@ -14,8 +14,8 @@ const Home = () => {
     const getTopProducts = async () => {
       setIsLoading(true);
       const products = await fetchAllProducts();
-      // Sort by rating and get top 5
-      const sorted = [...products].sort((a, b) => b.rating.rate - a.rating.rate).slice(0, 5);
+      // Sort by rating and get top 8
+      const sorted = [...products].sort((a, b) => b.rating.rate - a.rating.rate).slice(0, 8);
       setTopProducts(sorted);
       setIsLoading(false);
     };
