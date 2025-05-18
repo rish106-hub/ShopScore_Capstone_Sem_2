@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -37,8 +36,11 @@ const Products = () => {
     }
     
     if (ratingFilter) {
-      const minRating = parseInt(ratingFilter);
-      result = result.filter(product => product.rating.rate >= minRating);
+      const exactRating = parseInt(ratingFilter);
+      result = result.filter(product => {
+        const roundedRating = Math.round(product.rating.rate);
+        return roundedRating === exactRating;
+      });
     }
     
     setFilteredProducts(result);
@@ -76,10 +78,11 @@ const Products = () => {
                 onChange={(e) => setRatingFilter(e.target.value)}
               >
                 <option value="">Filter by Rating</option>
-                <option value="4">4+ Stars</option>
-                <option value="3">3+ Stars</option>
-                <option value="2">2+ Stars</option>
-                <option value="1">1+ Stars</option>
+                <option value="5">5 Stars</option>
+                <option value="4">4 Stars</option>
+                <option value="3">3 Stars</option>
+                <option value="2">2 Stars</option>
+                <option value="1">1 Star</option>
               </select>
               
               <button 

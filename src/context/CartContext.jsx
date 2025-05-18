@@ -1,9 +1,12 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const CartContext = createContext();
+const DELIVERY_FEE = 50;
+const FREE_DELIVERY_THRESHOLD = 499;
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
+  
   useEffect(() => {
     const stored = localStorage.getItem('cart');
     if (stored) {
@@ -15,6 +18,7 @@ export const CartProvider = ({ children }) => {
       }
     }
   }, []);
+
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
@@ -37,15 +41,44 @@ export const CartProvider = ({ children }) => {
     setCart(prev => prev.filter(item => item.product.id !== productId));
   };
 
+  const updateQuantity = (productId, newQuantity) => {
+    if (newQuantity < 1) {
+      removeFromCart(productId);
+      return;
+    }
+    setCart(prev =>
+      prev.map(item =>
+        item.product.id === productId
+          ? { ...item, quantity: newQuantity }
+          : item
+      )
+    );
+  };
+
   const clearCart = () => {
     setCart([]);
   };
 
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-  const cartTotal = cart.reduce((sum, item) => sum + item.quantity * item.product.price, 0);
+  const subtotal = cart.reduce((sum, item) => sum + item.quantity * item.product.price, 0);
+  const deliveryFee = subtotal >= FREE_DELIVERY_THRESHOLD ? 0 : DELIVERY_FEE;
+  const total = subtotal + deliveryFee;
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart, cartCount, cartTotal }}>
+    <CartContext.Provider 
+      value={{
+        cart,
+        addToCart,
+        removeFromCart,
+        updateQuantity,
+        clearCart,
+        cartCount,
+        subtotal,
+        deliveryFee,
+        total,
+        FREE_DELIVERY_THRESHOLD
+      }}
+    >
       {children}
     </CartContext.Provider>
   );

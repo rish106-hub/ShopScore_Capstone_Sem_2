@@ -8,7 +8,7 @@ const ProductModal = ({ product, onClose }) => {
 
   if (!product) return null;
 
-  const { title, price, description, image, rating } = product;
+  const { title, price, description, image, rating, reviews } = product;
 
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -33,23 +33,20 @@ const ProductModal = ({ product, onClose }) => {
           
           <div className="product-reviews">
             <h3 className="reviews-title">Customer Reviews</h3>
-            <div className="review-item">
-              <div className="review-header">
-                <span className="reviewer-name">John Doe</span>
-                <span className="review-date">January 15, 2023</span>
-              </div>
-              <StarRating rating={4.5} />
-              <p className="review-text">This product exceeded my expectations. The quality is amazing and it works perfectly!</p>
-            </div>
-            
-            <div className="review-item">
-              <div className="review-header">
-                <span className="reviewer-name">Jane Smith</span>
-                <span className="review-date">December 3, 2022</span>
-              </div>
-              <StarRating rating={5} />
-              <p className="review-text">Absolutely love it! Fast shipping and the product is exactly as described.</p>
-            </div>
+            {reviews && reviews.length > 0 ? (
+              reviews.map((review, index) => (
+                <div key={index} className="review-item">
+                  <div className="review-header">
+                    <span className="reviewer-name">{review.name}</span>
+                    <span className="review-date">{review.date}</span>
+                  </div>
+                  <StarRating rating={review.rating} />
+                  <p className="review-text">{review.comment}</p>
+                </div>
+              ))
+            ) : (
+              <p>No reviews yet.</p>
+            )}
           </div>
         </div>
       </div>
