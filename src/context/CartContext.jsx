@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const CartContext = createContext();
-const DELIVERY_FEE = 50;
-const FREE_DELIVERY_THRESHOLD = 499;
+const DELIVERY_FEE = 0.6;
+const FREE_DELIVERY_THRESHOLD = 12.04;
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
@@ -61,7 +61,7 @@ export const CartProvider = ({ children }) => {
 
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
   const subtotal = cart.reduce((sum, item) => sum + item.quantity * item.product.price, 0);
-  const deliveryFee = subtotal >= FREE_DELIVERY_THRESHOLD ? 0 : DELIVERY_FEE;
+  const deliveryFee = subtotal >= 12.04 ? 0 : DELIVERY_FEE;
   const total = subtotal + deliveryFee;
 
   return (
