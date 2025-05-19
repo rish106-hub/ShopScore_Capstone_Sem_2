@@ -21,8 +21,10 @@ export const AuthProvider = ({ children }) => {
     return unsubscribe;
   }, []);
 
-  const logout = () => {
-    return signOut(auth);
+  const logout = async () => {
+    // Clear the cart from localStorage when logging out
+    localStorage.removeItem('cart');
+    await signOut(auth);
   };
 
   const value = {

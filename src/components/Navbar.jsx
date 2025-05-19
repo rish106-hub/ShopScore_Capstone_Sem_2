@@ -56,32 +56,34 @@ const Navbar = () => {
                 <Link to="/login" className="nav-link">Login</Link>
               </li>
             )}
-            <li 
-              className="nav-item" 
-              onClick={() => setIsCartOpen(!isCartOpen)}
-              style={{ 
-                cursor: 'pointer',
-                position: 'relative',
-                display: 'flex',
-                alignItems: 'center'
-              }}
-            >
-              <span style={{ fontSize: '20px', marginRight: '5px' }}>🛒</span>
-              {cartCount > 0 && (
-                <span style={{
-                  backgroundColor: '#ff4444',
-                  color: 'white',
-                  borderRadius: '50%',
-                  padding: '2px 6px',
-                  fontSize: '12px',
-                  position: 'absolute',
-                  top: '-8px',
-                  right: '-8px'
-                }}>
-                  {cartCount}
-                </span>
-              )}
-            </li>
+            {currentUser && (
+              <li 
+                className="nav-item" 
+                onClick={() => setIsCartOpen(!isCartOpen)}
+                style={{ 
+                  cursor: 'pointer',
+                  position: 'relative',
+                  display: 'flex',
+                  alignItems: 'center'
+                }}
+              >
+                <span style={{ fontSize: '20px', marginRight: '5px' }}>🛒</span>
+                {cartCount > 0 && (
+                  <span style={{
+                    backgroundColor: '#ff4444',
+                    color: 'white',
+                    borderRadius: '50%',
+                    padding: '2px 6px',
+                    fontSize: '12px',
+                    position: 'absolute',
+                    top: '-8px',
+                    right: '-8px'
+                  }}>
+                    {cartCount}
+                  </span>
+                )}
+              </li>
+            )}
           </ul>
         </nav>
       </div>

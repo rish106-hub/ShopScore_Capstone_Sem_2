@@ -26,16 +26,6 @@ const ProductCard = ({ product, onClick }) => {
       <button 
         className="add-to-cart-btn" 
         onClick={handleAddToCart}
-        style={{
-          backgroundColor: '#007bff',
-          color: 'white',
-          border: 'none',
-          padding: '8px 16px',
-          borderRadius: '4px',
-          cursor: 'pointer',
-          width: '100%',
-          marginTop: '10px'
-        }}
       >
         Add to Cart
       </button>
