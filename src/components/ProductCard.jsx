@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import StarRating from './StarRating';
 import { getFormattedINRPrice } from '../utils/currency';
-import { useCart } from '../context/CartContext';
+import { useCart } from '../contexts/CartContext';
 
 const ProductCard = ({ product, onClick }) => {
   const { id, title, price, image, rating } = product;

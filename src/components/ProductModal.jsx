@@ -1,6 +1,6 @@
 import React from 'react';
 import StarRating from './StarRating';
-import { useCart } from '../context/CartContext';
+import { useCart } from '../contexts/CartContext';
 import { getFormattedINRPrice } from '../utils/currency';
 
 const ProductModal = ({ product, onClose }) => {

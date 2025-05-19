@@ -22,8 +22,6 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const logout = async () => {
-    // Clear the cart from localStorage when logging out
-    localStorage.removeItem('cart');
     await signOut(auth);
   };
 
@@ -34,7 +32,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={value}>
-      {!loading && children}
+      {children}
     </AuthContext.Provider>
   );
 };

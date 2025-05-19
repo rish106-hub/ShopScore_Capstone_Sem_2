@@ -9,13 +9,18 @@ import NotFound from './pages/NotFound';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import { AuthProvider } from './contexts/AuthContext';
-import { CartProvider } from './context/CartContext';
+import { CartProvider } from './contexts/CartContext';
 import { useAuth } from './contexts/AuthContext';
 import './styles/main.css';
 
 const PrivateRoute = ({ children }) => {
   const { currentUser } = useAuth();
-  return currentUser ? children : <Navigate to="/login" />;
+  
+  if (currentUser === undefined) {
+    return <div className="loading">Loading...</div>;
+  }
+  
+  return currentUser ? children : <Navigate to="/login" replace />;
 };
 
 const App = () => {

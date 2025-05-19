@@ -1,27 +1,39 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { useAuth } from '../contexts/AuthContext';
 
 const CartContext = createContext();
 const DELIVERY_FEE = 0.6;
 const FREE_DELIVERY_THRESHOLD = 12.04;
 
+const getCartKey = (userId) => `cart_${userId || 'guest'}`;
+
 export const CartProvider = ({ children }) => {
+  const { currentUser } = useAuth();
   const [cart, setCart] = useState([]);
-  
   useEffect(() => {
-    const stored = localStorage.getItem('cart');
-    if (stored) {
-      try {
-        setCart(JSON.parse(stored));
-      } catch (err) {
-        console.error('Failed to parse cart', err);
+    if (currentUser) {
+      const cartKey = getCartKey(currentUser.uid);
+      const stored = localStorage.getItem(cartKey);
+      if (stored) {
+        try {
+          setCart(JSON.parse(stored));
+        } catch (err) {
+          setCart([]);
+        }
+      } else {
         setCart([]);
       }
+    } else {
+      setCart([]);
     }
-  }, []);
+  }, [currentUser]);
 
   useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart));
-  }, [cart]);
+    if (currentUser) {
+      const cartKey = getCartKey(currentUser.uid);
+      localStorage.setItem(cartKey, JSON.stringify(cart));
+    }
+  }, [cart, currentUser]);
 
   const addToCart = (product) => {
     setCart(prev => {
@@ -55,10 +67,13 @@ export const CartProvider = ({ children }) => {
     );
   };
 
-  const clearCart = () => {
+  const clearCart = useCallback(() => {
     setCart([]);
-    localStorage.removeItem('cart');
-  };
+    if (currentUser) {
+      const cartKey = getCartKey(currentUser.uid);
+      localStorage.removeItem(cartKey);
+    }
+  }, [currentUser]);
 
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
   const subtotal = cart.reduce((sum, item) => sum + item.quantity * item.product.price, 0);
