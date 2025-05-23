@@ -16,7 +16,20 @@ const ProductCard = ({ product, onClick }) => {
   return (
     <div className="product-card">
       <div onClick={() => onClick(product)}>
-        <img src={image} alt={title} className="product-image" />
+        <div className="product-image-container">
+          <img 
+            src={image} 
+            alt={title} 
+            className="product-image" 
+            width="300"
+            height="300"
+            loading="lazy"
+            onError={(e) => {
+              e.target.src = '/placeholder-image.jpg';
+              e.target.onerror = null;
+            }}
+          />
+        </div>
         <div className="product-content">
           <h3 className="product-title">{title.length > 50 ? `${title.substring(0, 50)}...` : title}</h3>
           <p className="product-price">{getFormattedINRPrice(price)}</p>
