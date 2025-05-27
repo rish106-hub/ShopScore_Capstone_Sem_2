@@ -69,7 +69,7 @@ const Home = () => {
               <div className="review-item">
                 <div className="review-header">
                   <span className="reviewer-name">Debasish Karan</span>
-                  <span className="review-date">March 12, 2023</span>
+                  <span className="review-date">April 12, 2025</span>
                 </div>
                 <p className="review-text">"ShopScore helped me find the perfect laptop. The reviews were detailed and accurate!"</p>
               </div>
@@ -77,7 +77,7 @@ const Home = () => {
               <div className="review-item">
                 <div className="review-header">
                   <span className="reviewer-name">Atanu Adhikari</span>
-                  <span className="review-date">February 28, 2023</span>
+                  <span className="review-date">January 28, 2025</span>
                 </div>
                 <p className="review-text">"I love how easy it is to browse products and check ratings. This site is a game-changer!"</p>
               </div>
@@ -85,7 +85,7 @@ const Home = () => {
               <div className="review-item">
                 <div className="review-header">
                   <span className="reviewer-name">Aatmaram Bhide</span>
-                  <span className="review-date">January 15, 2023</span>
+                  <span className="review-date">February 15, 2025</span>
                 </div>
                 <p className="review-text">"The community here is fantastic. Honest reviews have saved me from making bad purchases multiple times."</p>
               </div>
@@ -93,7 +93,7 @@ const Home = () => {
               <div className="review-item">
                 <div className="review-header">
                   <span className="reviewer-name">Jethalal Gada</span>
-                  <span className="review-date">April 5, 2023</span>
+                  <span className="review-date">April 25, 2025</span>
                 </div>
                 <p className="review-text">"The detailed product ratings helped me make informed decisions. I particularly love the user photos in reviews!"</p>
               </div>
