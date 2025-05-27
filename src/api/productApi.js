@@ -1,5 +1,10 @@
 const BASE_URL = 'https://fakestoreapi.com';
 
+const indianNames = [
+  'Aarav Patel', 'Zara Khan', 'Arjun Sharma', 'Diya Verma', 'Vihaan Mehta',
+  'Ananya Singh', 'Advait Kumar', 'Riya Gupta', 'Ishaan Reddy', 'Aisha Kapoor',
+  'Kabir Malhotra', 'Saanvi Joshi', 'Reyansh Choudhury', 'Myra Sinha', 'Vivaan Rao'
+];
 
 const generateRandomDate = () => {
   const start = new Date(2023, 0, 1);
