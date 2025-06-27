@@ -4,14 +4,42 @@ import Footer from '../components/Footer';
 import ProductCard from '../components/ProductCard';
 import ProductModal from '../components/ProductModal';
 import { fetchAllProducts } from '../api/productApi';
+import StarRating from '../components/StarRating';
+import '../styles/filterStyles.css';
 
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
-  const [ratingFilter, setRatingFilter] = useState('');
+  const [ratingFilter, setRatingFilter] = useState(0);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [sortOrder, setSortOrder] = useState('desc');
+
+  const handleRatingFilter = (rating) => {
+    setRatingFilter(rating);
+  };
+
+  const handleSort = () => {
+    setSortOrder(sortOrder === 'desc' ? 'asc' : 'desc');
+  };
+
+  useEffect(() => {
+    const filtered = products.filter(product => {
+      const matchesSearch = product.title.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesRating = product.rating.rate >= ratingFilter;
+      return matchesSearch && matchesRating;
+    });
+
+    const sorted = [...filtered].sort((a, b) => {
+      if (sortOrder === 'asc') {
+        return a.rating.rate - b.rating.rate;
+      }
+      return b.rating.rate - a.rating.rate;
+    });
+
+    setFilteredProducts(sorted);
+  }, [products, searchTerm, ratingFilter, sortOrder]);
   
   useEffect(() => {
     const getProducts = async () => {
@@ -57,69 +85,58 @@ const Products = () => {
   return (
     <>
       <Navbar />
-      
-      <main>
-        <section className="products-section">
-          <div className="container">
-            <h1 className="section-title">All Products</h1>
-            
-            <div className="search-filter">
-              <input
-                type="text"
-                className="search-input"
-                placeholder="Search products..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-              
-              <select 
-                className="filter-select"
-                value={ratingFilter}
-                onChange={(e) => setRatingFilter(e.target.value)}
-              >
-                <option value="">Filter by Rating</option>
-                <option value="5">5 Stars</option>
-                <option value="4">4 Stars</option>
-                <option value="3">3 Stars</option>
-                <option value="2">2 Stars</option>
-                <option value="1">1 Star</option>
-              </select>
-              
-              <button 
-                className="btn"
-                onClick={() => {
-                  setSearchTerm('');
-                  setRatingFilter('');
-                }}
-              >
-                Reset Filters
-              </button>
+      <main className="container">
+        <div className="filter-container">
+          <input
+            type="text"
+            className="search-input"
+            placeholder="Search products..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <div className="rating-filter">
+            <label>Rating:</label>
+            <div className="rating-stars">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <i
+                  key={star}
+                  className={`rating-star ${star <= ratingFilter ? 'fas fa-star active' : 'far fa-star'}`}
+                  onClick={() => handleRatingFilter(star)}
+                />
+              ))}
             </div>
-            
-            {isLoading ? (
-              <p style={{ textAlign: 'center' }}>Loading products...</p>
-            ) : filteredProducts.length === 0 ? (
-              <p style={{ textAlign: 'center' }}>No products found matching your criteria.</p>
-            ) : (
-              <div className="products-grid">
-                {filteredProducts.map(product => (
-                  <ProductCard 
-                    key={product.id} 
-                    product={product} 
-                    onClick={handleProductClick} 
-                  />
-                ))}
-              </div>
-            )}
           </div>
-        </section>
+          <button
+            className="sort-button"
+            onClick={handleSort}
+          >
+            Sort by Rating
+            <i className={`fas fa-sort-${sortOrder === 'asc' ? 'up' : 'down'} sort-icon`} />
+          </button>
+        </div>
+        <div className="products-grid">
+          {isLoading ? (
+            <div className="loading-message">Loading products...</div>
+          ) : filteredProducts.length === 0 ? (
+            <p style={{ textAlign: 'center' }}>No products found matching your criteria.</p>
+          ) : (
+            filteredProducts.map((product) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                onClick={() => setSelectedProduct(product)}
+              />
+            ))
+          )}
+        </div>
       </main>
-      
-      {selectedProduct && (
-        <ProductModal product={selectedProduct} onClose={closeModal} />
-      )}
-      
       <Footer />
+      {selectedProduct && (
+        <ProductModal
+          product={selectedProduct}
+          onClose={() => setSelectedProduct(null)}
+        />
+      )}
     </>
   );
 };
