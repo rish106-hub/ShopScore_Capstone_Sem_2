@@ -23,7 +23,7 @@ Built as part of a Web Application Programming capstone project for my college h
 💡 Tech Stack <br>
 
 Layer	Technologies <br>
-Frontend	HTML, CSS, JavaScript (Vanilla/React) <br>
+Frontend	HTML, CSS, JavaScript (React) <br>
 Deployment	GitHub Pages and Vercel <br>
 <br>
 ⸻ <br>
@@ -31,8 +31,8 @@ Deployment	GitHub Pages and Vercel <br>
 🛠️ Installation & Usage <br>
 
 # 1. Clone the repo <br>
-git clone https://github.com/your-username/shopscore.git <br>
-cd shopscore <br>
+git clone https://github.com/rish106-hub/ShopScore_Capstone_Sem_2.git <br>
+cd ShopScore_Capstone_Sem_2 <br>
 
 # 2. Install dependencies (if using Node/React) <br>
 npm install <br>
@@ -40,23 +40,12 @@ npm install <br>
 # 3. Run the project <br>
 npm run dev <br>
 ⸻
-
-🔮 Future Improvements <br>
-	•	Admin dashboard to monitor reviews <br>
-	•	Sentiment analysis on reviews (AI integration) <br>
-	•	Verified buyer check before review submission <br>
-	•	Mobile app version <br>
-<br>
-⸻ <br>
-<br>
 🧠 Learnings <br>
 
 This project helped me: <br>
 
 	•	Understand full-stack application architecture <br>
 	•	Work with state management and routing <br>
-	•	Practice RESTful API design <br>
-	•	Learn CRUD operations with databases <br>
 	•	Build an actual deployable MVP <br>
 <br>
 ⸻ <br>
