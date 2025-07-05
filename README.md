@@ -43,7 +43,6 @@ npm run dev <br>
 🧠 Learnings <br>
 
 This project helped me: <br>
-
 	•	Understand full-stack application architecture <br>
 	•	Work with state management and routing <br>
 	•	Build an actual deployable MVP <br>
