@@ -24,7 +24,7 @@ Built as part of a Web Application Programming capstone project for my college h
 
 Layer	Technologies <br>
 Frontend	HTML, CSS, JavaScript (React) <br>
-Deployment	GitHub Pages and Vercel <br>
+Deployment	Vercel <br>
 <br>
 ⸻ <br>
 <br>
