@@ -20,7 +20,7 @@ const addReviewMetadata = (products) => {
       name: indianNames[Math.floor(Math.random() * indianNames.length)],
       date: generateRandomDate(),
       comment: 'Great product! Would definitely recommend.',
-      rating: Math.floor(Math.random() * 2) + 4 // Generates ratings between 4-5
+      rating: Math.floor(Math.random() * 2) + 4 
     }))
   }));
 };
