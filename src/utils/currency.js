@@ -2,7 +2,7 @@ const USD_TO_INR_RATE = 83.12;
 
 /**
  * Convert USD to INR
- * @param {number} usdAmount - Amount in USD
+ * @param {number} usdAmount 
  * @returns {number} Amount in INR
  */
 export const convertUSDtoINR = (usdAmount) => {
