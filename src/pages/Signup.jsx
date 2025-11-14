@@ -42,7 +42,8 @@ const Signup = () => {
     try {
       const response = await fetch("https://shopscore.onrender.com/api/auth/signup", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json"
+         },
         credentials: "include",
         body: JSON.stringify({
           name: formData.name,

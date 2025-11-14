@@ -37,7 +37,7 @@ const Login = () => {
       // Cookie is auto-set; just store minimal data
       localStorage.setItem("user", JSON.stringify(data.user));
 
-      navigate("/");
+      navigate("/dashboard");
     } catch (error) {
       setError(error.message);
     } finally {
@@ -88,7 +88,7 @@ const Login = () => {
               </button>
 
               <p className="auth-redirect">
-                Don’t have an account? <Link to="/signup">Sign up</Link>
+                Dont have an account? <Link to="/signup">Sign up</Link>
               </p>
             </form>
           </div>
@@ -100,3 +100,4 @@ const Login = () => {
 };
 
 export default Login;
+to 
