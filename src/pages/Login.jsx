@@ -37,7 +37,7 @@ const Login = () => {
       // Cookie is auto-set; just store minimal data
       localStorage.setItem("user", JSON.stringify(data.user));
 
-      navigate("/dashboard");
+      navigate("/products");
     } catch (error) {
       setError(error.message);
     } finally {
