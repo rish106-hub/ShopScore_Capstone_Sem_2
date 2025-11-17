@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --bg: hsl(0, 0%, 100%);
   --fg: hsl(222.2, 84%, 4.9%);
