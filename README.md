@@ -1,8 +1,8 @@
 # 🛒 ShopScore
 
-> A modern Product Reviews and Ratings System built with React
+> A modern **Product Reviews and Ratings** system built with **React**
 
-ShopScore is a comprehensive product review platform designed to help users make informed purchasing decisions by aggregating authentic reviews and scores. Built using HTML, CSS, JavaScript, and React with GenAI assistance, this application serves as a capstone project for Web Application Programming at Newton School of Technology.
+**ShopScore** helps people make smarter shopping decisions by aggregating ratings and reviews into clear, actionable insights. Built with **HTML, CSS, JavaScript, and React (18)** with GenAI assistance, as part of the Web Application Programming capstone at **Newton School of Technology**.
 
 ## 📋 Table of Contents
 
@@ -35,9 +35,15 @@ ShopScore is a comprehensive product review platform designed to help users make
 | **Frontend** | HTML5, CSS3, JavaScript (ES6+), React 18 |
 | **UI Components** | Custom components with modern CSS |
 | **State Management** | React Context API |
-| **Authentication** | Firebase Authentication |
+| **Authentication** | Firebase Authentication (client) / Cookie-based backend integration |
 | **Deployment** | Vercel |
 | **Development Tools** | Vite, ESLint, PostCSS |
+
+## 🧩 Data & APIs
+
+- **Products Source**: [Fake Store API](https://fakestoreapi.com/)
+- **Ratings**: Combines API-provided rating with user-submitted reviews (stored locally per browser) to compute a dynamic average and total count.
+- You can swap to other providers (e.g., Yelp/Google Places) with minimal changes in `src/api/productApi.js`.
 
 ## 🚀 Getting Started
 
@@ -76,6 +82,23 @@ Before running this project, make sure you have the following installed:
    ```bash
    npm run build
    ```
+
+## 🚢 Deployment (Vercel)
+
+This is a Single Page Application using React Router. To support direct URL access to routes like `/login` or `/products`, ensure SPA fallback is configured.
+
+Add a `vercel.json` at the project root (already included):
+
+```json
+{
+  "version": 2,
+  "routes": [
+    { "src": "/(.*)", "dest": "/" }
+  ]
+}
+```
+
+Then deploy via Vercel. Direct route hits will serve `index.html`, and the client router will take over.
 
 ## 📁 Project Structure
 
