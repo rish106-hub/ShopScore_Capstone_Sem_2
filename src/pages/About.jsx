@@ -48,7 +48,7 @@ const About = () => {
               
               <div className="creator-section">
                 <img
-                  src="https://media.licdn.com/dms/image/v2/D4D03AQH4jsAJthxCvg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1724421070071?e=1753315200&v=beta&t=soV2xn3tEDNnR87mqp7arfY6eBXuTCXeLnYf8tKH_JU"
+                  src="https://media.licdn.com/dms/image/v2/D4D03AQHT-FcOKP7HGQ/profile-displayphoto-scale_200_200/B4DZhRY.leHAAY-/0/1753712159860?e=2147483647&v=beta&t=mGboLq0FdyytSU4RZ6tNsDvyPYSOawagpdYiBtJzfQI"
                   alt="Creator"
                   className="creator-image"
                   referrerPolicy="no-referrer"
