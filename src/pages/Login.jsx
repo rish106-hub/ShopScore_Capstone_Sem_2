@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { Button } from "../components/ui/button";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -35,49 +36,58 @@ const Login = () => {
   return (
     <>
       <Navbar />
-      <main className="auth-page">
-        <div className="container">
-          <div className="auth-form-container">
-            <h1 className="auth-title">Welcome Back</h1>
-            <p className="auth-subtitle">Log in to your account</p>
+      <main className="auth-page min-h-[calc(100dvh-120px)] bg-gradient-to-b from-background to-secondary/40">
+        <div className="container flex items-center justify-center py-12">
+          <div className="auth-form-container w-full max-w-md rounded-2xl border border-border bg-white/70 dark:bg-black/30 backdrop-blur shadow-sm">
+            <div className="px-6 py-8">
+              <h1 className="auth-title text-2xl font-semibold tracking-tight text-foreground">Welcome Back</h1>
+              <p className="auth-subtitle mt-1 text-sm text-muted-foreground">Log in to your account</p>
 
-            <form onSubmit={handleSubmit} className="auth-form">
-              <div className="form-group">
-                <label className="form-label">Email Address</label>
-                <input
-                  type="email"
-                  name="email"
-                  className="form-input"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  required
-                  placeholder="Enter your email"
-                />
-              </div>
+              <form onSubmit={handleSubmit} className="auth-form mt-6 space-y-4">
+                <div className="form-group space-y-1.5">
+                  <label className="form-label text-sm text-foreground">Email Address</label>
+                  <input
+                    type="email"
+                    name="email"
+                    className="form-input w-full rounded-lg border border-border bg-white/70 dark:bg-black/30 backdrop-blur px-4 py-2 text-sm outline-none ring-offset-background placeholder:text-muted-foreground/70 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                    placeholder="Enter your email"
+                    autoComplete="email"
+                  />
+                </div>
 
-              <div className="form-group">
-                <label className="form-label">Password</label>
-                <input
-                  type="password"
-                  name="password"
-                  className="form-input"
-                  value={formData.password}
-                  onChange={handleInputChange}
-                  required
-                  placeholder="Enter your password"
-                />
-              </div>
+                <div className="form-group space-y-1.5">
+                  <label className="form-label text-sm text-foreground">Password</label>
+                  <input
+                    type="password"
+                    name="password"
+                    className="form-input w-full rounded-lg border border-border bg-white/70 dark:bg-black/30 backdrop-blur px-4 py-2 text-sm outline-none ring-offset-background placeholder:text-muted-foreground/70 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    value={formData.password}
+                    onChange={handleInputChange}
+                    required
+                    placeholder="Enter your password"
+                    autoComplete="current-password"
+                  />
+                </div>
 
-              {error && <div className="error-message">{error}</div>}
+                {error && (
+                  <div className="error-message rounded-md border border-destructive/30 bg-destructive/10 px-3 py-2 text-sm text-destructive">
+                    {error}
+                  </div>
+                )}
 
-              <button type="submit" className="btn btn-primary" disabled={isLoading}>
-                {isLoading ? "Logging in..." : "Login"}
-              </button>
+                <Button type="submit" className="w-full" disabled={isLoading}>
+                  {isLoading ? "Logging in..." : "Login"}
+                </Button>
 
-              <p className="auth-redirect">
-                Dont have an account? <Link to="/signup">Sign up</Link>
-              </p>
-            </form>
+                <p className="auth-redirect text-center text-sm text-muted-foreground">
+                  Dont have an account?{" "}
+                  <Link to="/signup" className="text-primary hover:underline underline-offset-4">Sign up</Link>
+                </p>
+              </form>
+            </div>
           </div>
         </div>
       </main>
