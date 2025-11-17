@@ -14,7 +14,7 @@ const About = () => {
             <h1 className="section-title">About ShopScore</h1>
             
             <div className="about-content">
-              <h2>Our History</h2>
+              <h2><b>Our History</b></h2>
               <p>
                 ShopScore was created in 2025 as a capstone project for the Web Applications Programming course. 
                 The goal was to create a platform where users could find honest reviews and ratings for products 
@@ -25,7 +25,7 @@ const About = () => {
                 looking to make informed purchase decisions based on real user experiences.
               </p>
               
-              <h2 style={{ marginTop: '30px' }}>Our Mission</h2>
+              <h2 style={{ marginTop: '30px' }}><b>Our Mission</b></h2>
               <p>
                 At ShopScore, our mission is to empower consumers with transparent, honest, and detailed product 
                 reviews. We believe that every shopper deserves access to reliable information before making a purchase.
@@ -35,7 +35,7 @@ const About = () => {
                 consumers and quality products can thrive.
               </p>
               
-              <h2 style={{ marginTop: '30px' }}>Our Vision</h2>
+              <h2 style={{ marginTop: '30px' }}><b>Our Vision</b></h2>
               <p>
                 We envision a world where consumers never have to worry about wasting money on subpar products. 
                 Our platform aims to be the go-to resource for product research, where every item is thoroughly 
