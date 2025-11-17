@@ -2,9 +2,9 @@
 
 > A modern **Product Reviews and Ratings** system built with **React**
 
-**ShopScore** helps people make smarter shopping decisions by aggregating ratings and reviews into clear, actionable insights. Built with **HTML, CSS, JavaScript, and React (18)** with GenAI assistance, as part of the Web Application Programming capstone at **Newton School of Technology**.
+ShopScore is a comprehensive product review platform designed to help users make informed purchasing decisions by aggregating authentic reviews and scores. Built using HTML, CSS, JavaScript, and React with GenAI assistance, this application serves as a capstone project for Web Application Programming at Newton School of Technology.
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Features](#-features)
 - [Tech Stack](#-tech-stack)
@@ -17,35 +17,29 @@
 - [Contributing](#-contributing)
 - [Contact](#-contact)
 
-## 🚀 Features
+## Features
 
-- **📝 Review Management**: Add and view comprehensive product reviews
-- **⭐ Star Rating System**: Rate products from 1 to 5 stars with intuitive interface
-- **📊 Real-time Analytics**: Calculate and display average ratings dynamically
-- **🔍 Advanced Filtering**: Search and filter products by rating and other criteria
-- **🧾 Clean UI/UX**: Modern, responsive design for optimal user experience
-- **👤 User Authentication**: Secure login and registration system
-- **🛒 Shopping Cart**: Add products to cart and manage purchases
-- **📱 Responsive Design**: Optimized for desktop and mobile devices
+- **Review Management**: Add and view comprehensive product reviews
+- **Star Rating System**: Rate products from 1 to 5 stars with intuitive interface
+- **Real-time Analytics**: Calculate and display average ratings dynamically
+- **Advanced Filtering**: Search and filter products by rating and other criteria
+- **Clean UI/UX**: Modern, responsive design for optimal user experience
+- **User Authentication**: Secure login and registration system
+- **Shopping Cart**: Add products to cart and manage purchases
+- **Responsive Design**: Optimized for desktop and mobile devices
 
-## 💡 Tech Stack
+## Tech Stack
 
 | Layer | Technologies |
 |-------|-------------|
 | **Frontend** | HTML5, CSS3, JavaScript (ES6+), React 18 |
 | **UI Components** | Custom components with modern CSS |
 | **State Management** | React Context API |
-| **Authentication** | Firebase Authentication (client) / Cookie-based backend integration |
+| **Authentication** | Firebase Authentication |
 | **Deployment** | Vercel |
 | **Development Tools** | Vite, ESLint, PostCSS |
 
-## 🧩 Data & APIs
-
-- **Products Source**: [Fake Store API](https://fakestoreapi.com/)
-- **Ratings**: Combines API-provided rating with user-submitted reviews (stored locally per browser) to compute a dynamic average and total count.
-- You can swap to other providers (e.g., Yelp/Google Places) with minimal changes in `src/api/productApi.js`.
-
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -83,24 +77,7 @@ Before running this project, make sure you have the following installed:
    npm run build
    ```
 
-## 🚢 Deployment (Vercel)
-
-This is a Single Page Application using React Router. To support direct URL access to routes like `/login` or `/products`, ensure SPA fallback is configured.
-
-Add a `vercel.json` at the project root (already included):
-
-```json
-{
-  "version": 2,
-  "routes": [
-    { "src": "/(.*)", "dest": "/" }
-  ]
-}
-```
-
-Then deploy via Vercel. Direct route hits will serve `index.html`, and the client router will take over.
-
-## 📁 Project Structure
+## Project Structure
 
 ```
 ShopScore/
@@ -126,7 +103,7 @@ ShopScore/
 └── package.json           # Project dependencies
 ```
 
-## 🧠 Key Learnings
+## Key Learnings
 
 This capstone project provided valuable experience in:
 
@@ -148,7 +125,7 @@ Contributions are welcome! If you'd like to contribute to ShopScore:
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📬 Contact
+## Contact
 
 **Rishav Dewan**
 - Email: rishavdewan10@gmail.com
