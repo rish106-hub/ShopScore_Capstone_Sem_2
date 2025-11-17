@@ -11,6 +11,7 @@ const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -60,16 +61,26 @@ const Login = () => {
 
                 <div className="form-group space-y-1.5">
                   <label className="form-label text-sm text-foreground">Password</label>
-                  <input
-                    type="password"
-                    name="password"
-                    className="form-input w-full rounded-lg border border-border bg-white/70 dark:bg-black/30 backdrop-blur px-4 py-2 text-sm outline-none ring-offset-background placeholder:text-muted-foreground/70 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                    value={formData.password}
-                    onChange={handleInputChange}
-                    required
-                    placeholder="Enter your password"
-                    autoComplete="current-password"
-                  />
+                  <div className="relative">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      name="password"
+                      className="form-input w-full rounded-lg border border-border bg-white/70 dark:bg-black/30 backdrop-blur px-4 py-2 pr-20 text-sm outline-none ring-offset-background placeholder:text-muted-foreground/70 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                      value={formData.password}
+                      onChange={handleInputChange}
+                      required
+                      placeholder="Enter your password"
+                      autoComplete="current-password"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword((v) => !v)}
+                      className="absolute inset-y-0 right-2 my-1 inline-flex items-center rounded-md px-3 text-xs font-medium text-foreground/80 hover:bg-secondary"
+                      aria-label={showPassword ? "Hide password" : "Show password"}
+                    >
+                      {showPassword ? "Hide" : "Show"}
+                    </button>
+                  </div>
                 </div>
 
                 {error && (
@@ -81,6 +92,10 @@ const Login = () => {
                 <Button type="submit" className="w-full" disabled={isLoading}>
                   {isLoading ? "Logging in..." : "Login"}
                 </Button>
+
+                <p className="text-[11px] leading-relaxed text-muted-foreground/80">
+                  Never share your password. ShopScore will never ask for your credentials via email or WhatsApp.
+                </p>
 
                 <p className="auth-redirect text-center text-sm text-muted-foreground">
                   Dont have an account?{" "}

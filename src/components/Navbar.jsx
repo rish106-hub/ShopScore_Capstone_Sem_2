@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useCart } from '../contexts/CartContext';
@@ -15,6 +15,14 @@ const Navbar = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  // ensure light mode if any leftover state exists
+  useEffect(() => {
+    try {
+      document.documentElement.classList.remove('dark');
+      localStorage.removeItem('theme');
+    } catch {}
+  }, []);
 
   return (
     <header className="header sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-black/40 border-b border-border">
@@ -75,6 +83,7 @@ const Navbar = () => {
                 </Link>
               </li>
             )}
+            
             {currentUser && (
               <li
                 className="nav-item relative flex items-center"
@@ -103,7 +112,7 @@ const Navbar = () => {
             <Link to="/products" className="block px-3 py-2 rounded-md text-sm hover:bg-secondary" onClick={() => setIsMenuOpen(false)}>Products</Link>
             <Link to="/submit-review" className="block px-3 py-2 rounded-md text-sm hover:bg-secondary" onClick={() => setIsMenuOpen(false)}>Submit Review</Link>
             <Link to="/about" className="block px-3 py-2 rounded-md text-sm hover:bg-secondary" onClick={() => setIsMenuOpen(false)}>About</Link>
-            <div className="px-3 py-2">
+            <div className="px-3 py-2 flex items-center gap-2">
               {currentUser ? (
                 <Button
                   onClick={() => {
