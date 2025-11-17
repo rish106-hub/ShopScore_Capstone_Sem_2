@@ -1,30 +1,5 @@
 const BASE_URL = 'https://fakestoreapi.com';
 
-const indianNames = [
-  'Aarav Patel', 'Zara Khan', 'Arjun Sharma', 'Diya Verma', 'Vihaan Mehta',
-  'Ananya Singh', 'Advait Kumar', 'Riya Gupta', 'Ishaan Reddy', 'Aisha Kapoor',
-  'Kabir Malhotra', 'Saanvi Joshi', 'Reyansh Choudhury', 'Myra Sinha', 'Vivaan Rao'
-];
-
-const generateRandomDate = () => {
-  const start = new Date(2023, 0, 1);
-  const end = new Date();
-  const randomDate = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
-  return randomDate.toLocaleDateString('en-IN');
-};
-
-const addReviewMetadata = (products) => {
-  return products.map(product => ({
-    ...product,
-    reviews: Array.from({ length: Math.floor(Math.random() * 3) + 1 }, () => ({
-      name: indianNames[Math.floor(Math.random() * indianNames.length)],
-      date: generateRandomDate(),
-      comment: 'Great product! Would definitely recommend.',
-      rating: Math.floor(Math.random() * 2) + 4 
-    }))
-  }));
-};
-
 export const fetchAllProducts = async () => {
   try {
     const response = await fetch(`${BASE_URL}/products`);
@@ -32,7 +7,7 @@ export const fetchAllProducts = async () => {
       throw new Error('Network response was not ok');
     }
     const products = await response.json();
-    return addReviewMetadata(products);
+    return products;
   } catch (error) {
     console.error('Error fetching products:', error);
     return [];
@@ -46,21 +21,63 @@ export const fetchProductById = async (id) => {
       throw new Error('Network response was not ok');
     }
     const product = await response.json();
-    return addReviewMetadata([product])[0];
+    return product;
   } catch (error) {
     console.error(`Error fetching product with id ${id}:`, error);
     return null;
   }
 };
 
+// Local user reviews storage helpers
+const storageKey = (productId) => `reviews:${productId}`;
+
+export const getUserReviews = (productId) => {
+  try {
+    const raw = localStorage.getItem(storageKey(productId));
+    return raw ? JSON.parse(raw) : [];
+  } catch (e) {
+    console.error('Failed to read user reviews', e);
+    return [];
+  }
+};
+
+const saveUserReviews = (productId, reviews) => {
+  try {
+    localStorage.setItem(storageKey(productId), JSON.stringify(reviews));
+  } catch (e) {
+    console.error('Failed to save user reviews', e);
+  }
+};
+
 export const submitReview = async (reviewData) => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      console.log('Review submitted:', reviewData);
-      resolve({
-        success: true,
-        message: 'Review submitted successfully'
-      });
-    }, 1000);
-  });
+  // reviewData: { productId, rating, name, email, reviewText }
+  const { productId, rating, name, email, reviewText } = reviewData;
+  const newReview = {
+    name: name || 'Anonymous',
+    date: new Date().toLocaleDateString('en-IN'),
+    comment: reviewText,
+    rating: Number(rating) || 0,
+    email: email || ''
+  };
+
+  const existing = getUserReviews(productId);
+  const updated = [newReview, ...existing];
+  saveUserReviews(productId, updated);
+
+  return { success: true, message: 'Review submitted successfully' };
+};
+
+// Combine API rating with user reviews to compute average and count
+export const getCombinedRating = (product) => {
+  const apiRate = product?.rating?.rate || 0;
+  const apiCount = product?.rating?.count || 0;
+  const userReviews = getUserReviews(product.id);
+  const userCount = userReviews.length;
+  const userSum = userReviews.reduce((sum, r) => sum + (Number(r.rating) || 0), 0);
+
+  const totalCount = apiCount + userCount;
+  if (totalCount === 0) return { rate: 0, count: 0 };
+
+  const totalScore = apiRate * apiCount + userSum;
+  return { rate: Number((totalScore / totalCount).toFixed(1)), count: totalCount };
 };

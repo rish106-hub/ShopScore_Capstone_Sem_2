@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ProductCard from '../components/ProductCard';
-import { fetchAllProducts } from '../api/productApi';
+import { fetchAllProducts, getCombinedRating } from '../api/productApi';
 
 const Home = () => {
   const [topProducts, setTopProducts] = useState([]);
@@ -14,7 +14,9 @@ const Home = () => {
     const getTopProducts = async () => {
       setIsLoading(true);
       const products = await fetchAllProducts();
-      const sorted = [...products].sort((a, b) => b.rating.rate - a.rating.rate).slice(0, 8);
+      const sorted = [...products]
+        .sort((a, b) => getCombinedRating(b).rate - getCombinedRating(a).rate)
+        .slice(0, 8);
       setTopProducts(sorted);
       setIsLoading(false);
     };

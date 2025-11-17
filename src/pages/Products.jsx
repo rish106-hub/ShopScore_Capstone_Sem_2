@@ -6,6 +6,7 @@ import ProductModal from '../components/ProductModal';
 import { fetchAllProducts } from '../api/productApi';
 import StarRating from '../components/StarRating';
 import '../styles/filterStyles.css';
+import { getCombinedRating } from '../api/productApi';
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -27,15 +28,17 @@ const Products = () => {
   useEffect(() => {
     const filtered = products.filter(product => {
       const matchesSearch = product.title.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesRating = product.rating.rate >= ratingFilter;
+      const matchesRating = getCombinedRating(product).rate >= ratingFilter;
       return matchesSearch && matchesRating;
     });
 
     const sorted = [...filtered].sort((a, b) => {
+      const aRate = getCombinedRating(a).rate;
+      const bRate = getCombinedRating(b).rate;
       if (sortOrder === 'asc') {
-        return a.rating.rate - b.rating.rate;
+        return aRate - bRate;
       }
-      return b.rating.rate - a.rating.rate;
+      return bRate - aRate;
     });
 
     setFilteredProducts(sorted);
@@ -66,7 +69,7 @@ const Products = () => {
     if (ratingFilter) {
       const exactRating = parseInt(ratingFilter);
       result = result.filter(product => {
-        const roundedRating = Math.round(product.rating.rate);
+        const roundedRating = Math.round(getCombinedRating(product).rate);
         return roundedRating === exactRating;
       });
     }

@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom';
 import StarRating from './StarRating';
 import { getFormattedINRPrice } from '../utils/currency';
 import { useCart } from '../contexts/CartContext';
+import { getCombinedRating } from '../api/productApi';
 
 const ProductCard = ({ product, onClick }) => {
   const { id, title, price, image, rating } = product;
   const { addToCart } = useCart();
+  const combined = getCombinedRating(product);
 
   const handleAddToCart = (e) => {
     e.stopPropagation();
@@ -33,7 +35,7 @@ const ProductCard = ({ product, onClick }) => {
         <div className="product-content">
           <h3 className="product-title">{title.length > 50 ? `${title.substring(0, 50)}...` : title}</h3>
           <p className="product-price">{getFormattedINRPrice(price)}</p>
-          <StarRating rating={rating.rate} count={rating.count} />
+          <StarRating rating={combined.rate} count={combined.count} />
         </div>
       </div>
       <button 

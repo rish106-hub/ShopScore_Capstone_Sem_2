@@ -2,13 +2,16 @@ import React from 'react';
 import StarRating from './StarRating';
 import { useCart } from '../contexts/CartContext';
 import { getFormattedINRPrice } from '../utils/currency';
+import { getCombinedRating, getUserReviews } from '../api/productApi';
 
 const ProductModal = ({ product, onClose }) => {
   const { addToCart } = useCart();
 
   if (!product) return null;
 
-  const { title, price, description, image, rating, reviews } = product;
+  const { title, price, description, image } = product;
+  const combined = getCombinedRating(product);
+  const reviews = getUserReviews(product.id);
 
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -23,7 +26,7 @@ const ProductModal = ({ product, onClose }) => {
             
             <div className="product-detail-content">
               <h2 className="product-detail-title">{title}</h2>
-              <StarRating rating={rating.rate} count={rating.count} />
+              <StarRating rating={combined.rate} count={combined.count} />
               <p className="product-detail-price">{getFormattedINRPrice(price)}</p>
               <p className="product-detail-description">{description}</p>
               
