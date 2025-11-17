@@ -14,12 +14,12 @@ import { useAuth } from './contexts/AuthContext';
 import './styles/main.css';
 
 const PrivateRoute = ({ children }) => {
-  const { currentUser } = useAuth();
-  
-  if (currentUser === undefined) {
+  const { currentUser, loading } = useAuth();
+
+  if (loading) {
     return <div className="loading">Loading...</div>;
   }
-  
+
   return currentUser ? children : <Navigate to="/login" replace />;
 };
 

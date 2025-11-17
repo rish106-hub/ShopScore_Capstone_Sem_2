@@ -48,8 +48,11 @@ export const AuthProvider = ({ children }) => {
     const data = await response.json();
     if (!response.ok) throw new Error(data.message || "Login failed");
 
-    setCurrentUser(data.user);
-    localStorage.setItem("user", JSON.stringify(data.user));
+    const user = data.user || (data.data && data.data.user) || null;
+    if (!user) throw new Error("Login failed: user missing in response");
+
+    setCurrentUser(user);
+    localStorage.setItem("user", JSON.stringify(user));
 
     return data.user;
   };
@@ -86,6 +89,7 @@ export const AuthProvider = ({ children }) => {
 
   const value = {
     currentUser,
+    loading,
     login,
     signup,
     logout,
