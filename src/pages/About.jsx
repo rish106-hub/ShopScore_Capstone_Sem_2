@@ -47,10 +47,16 @@ const About = () => {
               </p>
               
               <div className="creator-section">
-                <img 
-                  src="https://media.licdn.com/dms/image/v2/D4D03AQH4jsAJthxCvg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1724421070071?e=1753315200&v=beta&t=soV2xn3tEDNnR87mqp7arfY6eBXuTCXeLnYf8tKH_JU"  
-                  alt="Creator" 
-                  className="creator-image" 
+                <img
+                  src="https://media.licdn.com/dms/image/v2/D4D03AQH4jsAJthxCvg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1724421070071?e=1753315200&v=beta&t=soV2xn3tEDNnR87mqp7arfY6eBXuTCXeLnYf8tKH_JU"
+                  alt="Creator"
+                  className="creator-image"
+                  referrerPolicy="no-referrer"
+                  loading="lazy"
+                  onError={(e) => {
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src = 'https://i.pravatar.cc/400?img=12';
+                  }}
                 />
                 <h3 className="creator-name">RISHAV DEWAN</h3>
                 <p className="creator-role">Student</p>
