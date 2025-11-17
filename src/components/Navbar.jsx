@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useCart } from '../contexts/CartContext';
 import Cart from './Cart';
+import { Button } from './ui/button';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -16,76 +17,113 @@ const Navbar = () => {
   };
 
   return (
-    <header className="header">
+    <header className="header sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-black/40 border-b border-border">
       <div className="container">
-        <nav className="navbar">
-          <Link to="/" className="logo">ShopScore</Link>
-          
-          <button className="mobile-toggle" onClick={toggleMenu}>
+        <nav className="navbar flex items-center justify-between py-3">
+          <Link to="/" className="logo text-xl font-semibold tracking-tight text-foreground">
+            ShopScore
+          </Link>
+
+          <button
+            className="mobile-toggle md:hidden inline-flex h-10 w-10 items-center justify-center rounded-md border border-border text-foreground/80 hover:bg-secondary hover:text-foreground transition"
+            onClick={toggleMenu}
+            aria-label="Toggle menu"
+          >
             ☰
           </button>
-          
-          <ul className={`nav-list ${isMenuOpen ? 'active' : ''}`}>
+
+          <ul
+            className={`nav-list ${isMenuOpen ? 'active' : ''} md:flex md:items-center gap-2 hidden md:visible`}
+          >
             <li className="nav-item">
-              <Link to="/" className="nav-link">Home</Link>
+              <Link to="/" className="nav-link px-3 py-2 rounded-md text-sm hover:bg-secondary hover:text-foreground transition">
+                Home
+              </Link>
             </li>
             <li className="nav-item">
-              <Link to="/products" className="nav-link">Products</Link>
+              <Link to="/products" className="nav-link px-3 py-2 rounded-md text-sm hover:bg-secondary hover:text-foreground transition">
+                Products
+              </Link>
             </li>
             <li className="nav-item">
-              <Link to="/submit-review" className="nav-link">Submit Review</Link>
+              <Link to="/submit-review" className="nav-link px-3 py-2 rounded-md text-sm hover:bg-secondary hover:text-foreground transition">
+                Submit Review
+              </Link>
             </li>
             <li className="nav-item">
-              <Link to="/about" className="nav-link">About</Link>
+              <Link to="/about" className="nav-link px-3 py-2 rounded-md text-sm hover:bg-secondary hover:text-foreground transition">
+                About
+              </Link>
             </li>
             {currentUser ? (
               <li className="nav-item">
-                <button 
+                <Button
                   onClick={() => {
                     logout();
                     navigate('/login');
-                  }} 
+                  }}
+                  size="sm"
                   className="nav-link logout-btn"
-                  style={{ backgroundColor: 'blue', color: 'white', border: 'none', padding: '8px 16px', borderRadius: '4px', cursor: 'pointer' }}
                 >
                   Logout
-                </button>
+                </Button>
               </li>
             ) : (
               <li className="nav-item">
-                <Link to="/login" className="nav-link">Login</Link>
+                <Link to="/login" className="nav-link">
+                  <Button size="sm" variant="outline">Login</Button>
+                </Link>
               </li>
             )}
             {currentUser && (
-              <li 
-                className="nav-item" 
-                onClick={() => setIsCartOpen(!isCartOpen)}
-                style={{ 
-                  cursor: 'pointer',
-                  position: 'relative',
-                  display: 'flex',
-                  alignItems: 'center'
-                }}
+              <li
+                className="nav-item relative flex items-center"
               >
-                <span style={{ fontSize: '20px', marginRight: '5px' }}>🛒</span>
-                {cartCount > 0 && (
-                  <span style={{
-                    backgroundColor: '#ff4444',
-                    color: 'white',
-                    borderRadius: '50%',
-                    padding: '2px 6px',
-                    fontSize: '12px',
-                    position: 'absolute',
-                    top: '-8px',
-                    right: '-8px'
-                  }}>
-                    {cartCount}
-                  </span>
-                )}
+                <button
+                  onClick={() => setIsCartOpen(!isCartOpen)}
+                  className="relative inline-flex items-center justify-center rounded-md border border-transparent px-2 py-2 text-base hover:bg-secondary transition"
+                  aria-label="Cart"
+                >
+                  <span className="text-xl">🛒</span>
+                  {cartCount > 0 && (
+                    <span className="absolute -top-1 -right-1 inline-flex items-center justify-center rounded-full bg-red-500 text-white text-[10px] px-1.5 py-0.5">
+                      {cartCount}
+                    </span>
+                  )}
+                </button>
               </li>
             )}
           </ul>
         </nav>
+
+        {/* Mobile menu */}
+        {isMenuOpen && (
+          <div className="md:hidden px-2 pb-3 pt-2 space-y-1">
+            <Link to="/" className="block px-3 py-2 rounded-md text-sm hover:bg-secondary" onClick={() => setIsMenuOpen(false)}>Home</Link>
+            <Link to="/products" className="block px-3 py-2 rounded-md text-sm hover:bg-secondary" onClick={() => setIsMenuOpen(false)}>Products</Link>
+            <Link to="/submit-review" className="block px-3 py-2 rounded-md text-sm hover:bg-secondary" onClick={() => setIsMenuOpen(false)}>Submit Review</Link>
+            <Link to="/about" className="block px-3 py-2 rounded-md text-sm hover:bg-secondary" onClick={() => setIsMenuOpen(false)}>About</Link>
+            <div className="px-3 py-2">
+              {currentUser ? (
+                <Button
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    logout();
+                    navigate('/login');
+                  }}
+                  size="sm"
+                  className="w-full"
+                >
+                  Logout
+                </Button>
+              ) : (
+                <Link to="/login" onClick={() => setIsMenuOpen(false)}>
+                  <Button size="sm" variant="outline" className="w-full">Login</Button>
+                </Link>
+              )}
+            </div>
+          </div>
+        )}
       </div>
       {isCartOpen && <Cart onClose={() => setIsCartOpen(false)} />}
     </header>
