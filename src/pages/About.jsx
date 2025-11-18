@@ -22,9 +22,10 @@ const About = () => {
               <article className="about-card">
                 <h2><b>Our History</b></h2>
                 <p>
-                  ShopScore was created in 2025 as a capstone project for the Web Applications Programming course. 
-                  The goal was to create a platform where users could find honest reviews and ratings for products 
-                  they're interested in purchasing.
+                  ShopScore was created in 2025 as a capstone project for the Web Applications Programming course.
+                </p>
+                <p>
+                  The goal was to create a platform where users could find honest reviews and ratings for products they're interested in purchasing.
                 </p>
                 <p>
                   What started as a simple academic project has evolved into a comprehensive resource for consumers 
