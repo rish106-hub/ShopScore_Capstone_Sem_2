@@ -533,6 +533,8 @@ img {
   box-shadow: var(--shadow);
   padding: 24px;
   line-height: 1.8;
+  border: 1px solid var(--border-color);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
 .about-card h2 {
@@ -550,6 +552,8 @@ img {
   border-radius: var(--border-radius);
   box-shadow: var(--shadow);
   text-align: center;
+  border: 1px solid var(--border-color);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
 .creator-flex {
@@ -607,6 +611,17 @@ img {
 .social-link:hover {
   background-color: var(--primary-color);
   color: white;
+}
+
+/* Hover states */
+.about-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.creator-section:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
 }
 
 @media (max-width: 768px) {
