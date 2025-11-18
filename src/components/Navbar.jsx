@@ -41,7 +41,7 @@ const Navbar = () => {
           </button>
 
           <ul
-            className={`nav-list ${isMenuOpen ? 'active' : ''} md:flex md:items-center gap-2 hidden md:visible`}
+            className={`nav-list ${isMenuOpen ? 'active' : ''} hidden md:flex md:items-center gap-2`}
           >
             <li className="nav-item">
               <Link to="/" className="nav-link px-3 py-2 rounded-md text-sm hover:bg-secondary hover:text-foreground transition">
