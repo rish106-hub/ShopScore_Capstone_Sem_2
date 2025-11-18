@@ -8,22 +8,59 @@ export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // 🧩 Check if a user is already logged in when the app starts
+  const SESSION_KEY = "user";
+  const SESSION_EXPIRES_AT_KEY = "session_expires_at";
+  const SESSION_MINUTES = 20; 
+
+  const setSessionExpiry = () => {
+    const expiresAt = Date.now() + SESSION_MINUTES * 60 * 1000;
+    localStorage.setItem(SESSION_EXPIRES_AT_KEY, String(expiresAt));
+  };
+
+  const isSessionActive = () => {
+    const raw = localStorage.getItem(SESSION_EXPIRES_AT_KEY);
+    if (!raw) return false;
+    const expiresAt = Number(raw);
+    return Number.isFinite(expiresAt) && Date.now() < expiresAt;
+  };
+
   useEffect(() => {
-    const verifyUser = async () => {
+    const refreshOnActivity = () => {
+      if (currentUser) setSessionExpiry();
+    };
+    const events = ["mousemove", "keydown", "click", "scroll", "touchstart"];
+    events.forEach((ev) => window.addEventListener(ev, refreshOnActivity));
+    return () => {
+      events.forEach((ev) => window.removeEventListener(ev, refreshOnActivity));
+    };
+  }, [currentUser]);
+  useEffect(() => {
+    const bootstrapAuth = async () => {
       try {
+        // If we have a non-expired local session, trust it to provide at least 20 minutes continuity
+        const savedUser = localStorage.getItem(SESSION_KEY);
+        if (savedUser && isSessionActive()) {
+          const parsed = JSON.parse(savedUser);
+          setCurrentUser(parsed);
+          // extend the session on boot
+          setSessionExpiry();
+          return;
+        }
+
+        // Otherwise, verify with backend and initialize a fresh 20-minute session window
         const response = await fetch("https://shopscore.onrender.com/api/auth/me", {
           method: "GET",
-          credentials: "include", // crucial for sending cookies
+          credentials: "include",
         });
-
         if (response.ok) {
           const data = await response.json();
           setCurrentUser(data.user);
-          localStorage.setItem("user", JSON.stringify(data.user));
+          localStorage.setItem(SESSION_KEY, JSON.stringify(data.user));
+          setSessionExpiry();
         } else {
           setCurrentUser(null);
-          localStorage.removeItem("user");
+          localStorage.removeItem(SESSION_KEY);
+          localStorage.removeItem(SESSION_EXPIRES_AT_KEY);
         }
       } catch (err) {
         console.error("Auth check failed:", err);
@@ -33,7 +70,7 @@ export const AuthProvider = ({ children }) => {
       }
     };
 
-    verifyUser();
+    bootstrapAuth();
   }, []);
 
   // 🔐 Login: call backend and set user from response
@@ -52,12 +89,11 @@ export const AuthProvider = ({ children }) => {
     if (!user) throw new Error("Login failed: user missing in response");
 
     setCurrentUser(user);
-    localStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem(SESSION_KEY, JSON.stringify(user));
+    setSessionExpiry();
 
     return data.user;
   };
-
-  // 🧾 Signup: handled separately (redirects to login)
   const signup = async (name, email, phone, password) => {
     const response = await fetch("https://shopscore.onrender.com/api/auth/signup", {
       method: "POST",
@@ -83,7 +119,8 @@ export const AuthProvider = ({ children }) => {
       console.error("Logout error:", error);
     } finally {
       setCurrentUser(null);
-      localStorage.removeItem("user");
+      localStorage.removeItem(SESSION_KEY);
+      localStorage.removeItem(SESSION_EXPIRES_AT_KEY);
     }
   };
 
