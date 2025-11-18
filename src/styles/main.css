@@ -532,6 +532,15 @@ img {
   border-radius: var(--border-radius);
   box-shadow: var(--shadow);
   padding: 24px;
+  line-height: 1.8;
+}
+
+.about-card h2 {
+  margin-bottom: 10px;
+}
+
+.about-card p:not(:last-child) {
+  margin-bottom: 12px;
 }
 
 .creator-section {
@@ -567,6 +576,10 @@ img {
 .creator-role {
   color: var(--text-light);
   margin-bottom: 20px;
+}
+
+.creator-content p:not(:last-child) {
+  margin-bottom: 10px;
 }
 
 .social-links {
