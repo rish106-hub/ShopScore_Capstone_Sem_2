@@ -28,7 +28,10 @@ const About = () => {
                 <h2 className="text-xl font-medium text-zinc-900">Our History</h2>
                 <div className="w-12 h-0.5 bg-zinc-900/10"></div>
                 <p className="text-zinc-600 leading-relaxed font-light">
-                  ShopScore was created in 2025 as a capstone project for the Web Applications Programming course. What started as a simple academic project has evolved into a comprehensive resource for consumers looking to make informed purchase decisions based on real user experiences.
+                  ShopScore was created in 2025 as a capstone project for the Web Applications Programming course.
+                </p>
+                <p className="text-zinc-600 leading-relaxed font-light">
+                  What started as a simple academic project has evolved into a comprehensive resource for consumers looking to make informed purchase decisions based on real user experiences.
                 </p>
               </div>
 
@@ -36,7 +39,10 @@ const About = () => {
                 <h2 className="text-xl font-medium text-zinc-900">Our Mission</h2>
                 <div className="w-12 h-0.5 bg-zinc-900/10"></div>
                 <p className="text-zinc-600 leading-relaxed font-light">
-                  At ShopScore, our mission is to empower consumers with transparent, honest, and detailed product reviews. We believe that every shopper deserves access to reliable information before making a purchase. By fostering a community of honest reviewers, we aim to create a trustworthy ecosystem.
+                  At ShopScore, our mission is to empower consumers with transparent, honest, and detailed product reviews. We believe that every shopper deserves access to reliable information before making a purchase.
+                </p>
+                <p className="text-zinc-600 leading-relaxed font-light">
+                  By fostering a community of honest reviewers, we aim to create a trustworthy ecosystem.
                 </p>
               </div>
 
@@ -44,7 +50,10 @@ const About = () => {
                 <h2 className="text-xl font-medium text-zinc-900">Our Vision</h2>
                 <div className="w-12 h-0.5 bg-zinc-900/10"></div>
                 <p className="text-zinc-600 leading-relaxed font-light">
-                  We envision a world where consumers never have to worry about wasting money on subpar products. Our platform aims to be the go-to resource for product research. In the future, we plan to expand our categories and introduce video reviews.
+                  We envision a world where consumers never have to worry about wasting money on subpar products. Our platform aims to be the go-to resource for product research.
+                </p>
+                <p className="text-zinc-600 leading-relaxed font-light">
+                  In the future, we plan to expand our categories and introduce video reviews.
                 </p>
               </div>
             </div>

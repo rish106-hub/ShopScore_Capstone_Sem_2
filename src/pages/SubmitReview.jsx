@@ -189,7 +189,7 @@ const SubmitReview = () => {
                       </SelectTrigger>
                       <SelectContent>
                         {products.map(product => (
-                          <SelectItem key={product.id} value={product.id}>
+                          <SelectItem key={product.id} value={String(product.id)}>
                             {product.title}
                           </SelectItem>
                         ))}
@@ -252,7 +252,7 @@ const SubmitReview = () => {
                       name="reviewText"
                       value={formData.reviewText}
                       onChange={handleInputChange}
-                      className={`min-h-[150px] resize-none ${formErrors.reviewText ? "border-red-500" : ""}`}
+                      className={`min-h-[150px] p-4 text-base ${formErrors.reviewText ? "border-red-500" : ""}`}
                       placeholder="Share your experience with this product..."
                     />
                     {formErrors.reviewText && <p className="text-sm text-red-500">{formErrors.reviewText}</p>}
