@@ -5,6 +5,7 @@ import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Loader2, ArrowLeft, ShoppingBag } from "lucide-react";
+import happyCustomer from "../assets/happy_customer.png";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -38,8 +39,8 @@ const Login = () => {
   return (
     <div className="w-full h-screen lg:grid lg:grid-cols-2 overflow-hidden">
       {/* Left Side - Decorative */}
-      <div className="hidden lg:flex flex-col justify-between bg-zinc-900 p-10 text-white dark:border-r">
-        <div className="flex items-center gap-2 font-medium text-lg">
+      <div className="relative hidden lg:flex flex-col justify-between bg-zinc-900 p-10 text-white dark:border-r">
+        <div className="flex items-center gap-2 font-medium text-lg z-10">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
             <ShoppingBag className="h-5 w-5 text-white" />
           </div>
@@ -50,16 +51,26 @@ const Login = () => {
             <p className="text-xl font-medium leading-relaxed">
               &ldquo;ShopScore has completely transformed how I shop online. The deals are amazing and the delivery is super fast.&rdquo;
             </p>
-            <footer className="text-sm text-zinc-400">Sofia Davis</footer>
+            <footer className="flex items-center gap-4 pt-4">
+              <img
+                src={happyCustomer}
+                alt="Uttam Mahato"
+                className="h-12 w-12 rounded-full object-cover border-2 border-white/20"
+              />
+              <div className="text-sm">
+                <div className="font-semibold">Uttam Mahato</div>
+                <div className="text-zinc-400">Verified Customer</div>
+              </div>
+            </footer>
           </blockquote>
         </div>
         <div className="absolute inset-0 bg-zinc-900 opacity-50 z-0" />
-        {/* Abstract background pattern could go here */}
+        {/* Abstract background pattern */}
         <div className="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"></div>
       </div>
 
       {/* Right Side - Form */}
-      <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-background">
+      <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-background relative z-10">
         <div className="mx-auto grid w-full max-w-[400px] gap-6">
           <div className="flex flex-col space-y-2 text-center">
             <div className="flex justify-center lg:hidden mb-4">
