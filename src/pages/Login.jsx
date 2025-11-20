@@ -47,7 +47,7 @@ const Login = () => {
         </div>
         <div className="relative z-20 mt-auto">
           <blockquote className="space-y-2">
-            <p className="text-lg">
+            <p className="text-xl font-medium leading-relaxed">
               &ldquo;ShopScore has completely transformed how I shop online. The deals are amazing and the delivery is super fast.&rdquo;
             </p>
             <footer className="text-sm text-zinc-400">Sofia Davis</footer>
@@ -63,7 +63,7 @@ const Login = () => {
         <div className="mx-auto grid w-full max-w-[400px] gap-6">
           <div className="flex flex-col space-y-2 text-center">
             <div className="flex justify-center lg:hidden mb-4">
-               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-primary-foreground">
                 <ShoppingBag className="h-6 w-6 text-white" />
               </div>
             </div>
@@ -85,7 +85,7 @@ const Login = () => {
                 value={formData.email}
                 onChange={handleInputChange}
                 disabled={isLoading}
-                className="bg-background"
+                className="bg-background transition-all duration-200 focus-visible:ring-offset-0"
               />
             </div>
             <div className="grid gap-2">
@@ -93,7 +93,7 @@ const Login = () => {
                 <Label htmlFor="password">Password</Label>
                 <Link
                   to="/forgot-password"
-                  className="ml-auto inline-block text-sm underline text-muted-foreground hover:text-primary"
+                  className="ml-auto inline-block text-sm underline text-muted-foreground hover:text-primary transition-colors"
                 >
                   Forgot your password?
                 </Link>
@@ -107,12 +107,12 @@ const Login = () => {
                   value={formData.password}
                   onChange={handleInputChange}
                   disabled={isLoading}
-                  className="pr-10 bg-background"
+                  className="pr-10 bg-background transition-all duration-200 focus-visible:ring-offset-0"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                 >
                   {showPassword ? (
                     <span className="text-xs">Hide</span>
@@ -129,11 +129,11 @@ const Login = () => {
               </div>
             )}
 
-            <Button type="submit" className="w-full" disabled={isLoading}>
+            <Button type="submit" className="w-full transition-all duration-200" disabled={isLoading}>
               {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               Login
             </Button>
-            
+
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
                 <span className="w-full border-t" />
@@ -144,7 +144,7 @@ const Login = () => {
                 </span>
               </div>
             </div>
-             <Button variant="outline" type="button" disabled={isLoading} className="w-full">
+            <Button variant="outline" type="button" disabled={isLoading} className="w-full hover:bg-secondary/50 transition-colors">
               <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
                 <path
                   d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -169,15 +169,15 @@ const Login = () => {
 
           <div className="text-center text-sm">
             Don&apos;t have an account?{" "}
-            <Link to="/signup" className="underline underline-offset-4 hover:text-primary">
+            <Link to="/signup" className="underline underline-offset-4 hover:text-primary transition-colors">
               Sign up
             </Link>
           </div>
-          
+
           <div className="text-center">
-             <Link to="/" className="text-xs text-muted-foreground hover:text-foreground flex items-center justify-center gap-1">
-                <ArrowLeft className="h-3 w-3" /> Back to Store
-             </Link>
+            <Link to="/" className="text-xs text-muted-foreground hover:text-foreground flex items-center justify-center gap-1 transition-colors">
+              <ArrowLeft className="h-3 w-3" /> Back to Store
+            </Link>
           </div>
         </div>
       </div>
