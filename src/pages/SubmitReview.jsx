@@ -4,7 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { fetchAllProducts, submitReview } from '../api/productApi';
-import '../styles/rating.css';
+import { Button } from "../components/ui/button";
+import { Input } from "../components/ui/input";
+import { Label } from "../components/ui/label";
+import { Textarea } from "../components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select";
+import { Loader2, CheckCircle2, Star } from "lucide-react";
 
 const SubmitReview = () => {
   const navigate = useNavigate();
@@ -20,7 +25,7 @@ const SubmitReview = () => {
   const [formErrors, setFormErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
-  
+
   useEffect(() => {
     const getProducts = async () => {
       setIsLoading(true);
@@ -28,10 +33,10 @@ const SubmitReview = () => {
       setProducts(data);
       setIsLoading(false);
     };
-    
+
     getProducts();
   }, []);
-  
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -45,13 +50,13 @@ const SubmitReview = () => {
       });
     }
   };
-  
+
   const handleRatingChange = (rating) => {
     setFormData({
       ...formData,
       rating
     });
-    
+
     if (formErrors.rating) {
       setFormErrors({
         ...formErrors,
@@ -59,54 +64,67 @@ const SubmitReview = () => {
       });
     }
   };
-  
+
+  const handleProductChange = (value) => {
+    setFormData({
+      ...formData,
+      productId: value
+    });
+    if (formErrors.productId) {
+      setFormErrors({
+        ...formErrors,
+        productId: ''
+      });
+    }
+  }
+
   const validateForm = () => {
     const errors = {};
-    
+
     if (!formData.productId) {
       errors.productId = 'Please select a product';
     }
-    
+
     if (formData.rating === 0) {
       errors.rating = 'Please select a rating';
     }
-    
+
     if (!formData.name.trim()) {
       errors.name = 'Name is required';
     }
-    
+
     if (!formData.email.trim()) {
       errors.email = 'Email is required';
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       errors.email = 'Email is invalid';
     }
-    
+
     if (!formData.reviewText.trim()) {
       errors.reviewText = 'Review text is required';
     } else if (formData.reviewText.length < 10) {
       errors.reviewText = 'Review text must be at least 10 characters';
     }
-    
+
     return errors;
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     const errors = validateForm();
     if (Object.keys(errors).length > 0) {
       setFormErrors(errors);
       return;
     }
-    
+
     setIsSubmitting(true);
-    
+
     try {
       const response = await submitReview(formData);
-      
+
       if (response.success) {
         setSubmitSuccess(true);
-        
+
         setFormData({
           productId: '',
           rating: 0,
@@ -114,7 +132,7 @@ const SubmitReview = () => {
           email: '',
           reviewText: ''
         });
-        
+
         // Redirect after 2 seconds
         setTimeout(() => {
           navigate('/products');
@@ -130,117 +148,140 @@ const SubmitReview = () => {
       setIsSubmitting(false);
     }
   };
-  
+
   return (
-    <>
+    <div className="min-h-screen bg-white text-zinc-950 font-sans selection:bg-zinc-100 flex flex-col">
       <Navbar />
-      
-      <main>
-        <section className="products-section">
-          <div className="container">
-            <h1 className="section-title">Submit Your Review</h1>
-            
-            <div className="review-form">
-              {submitSuccess ? (
-                <div style={{ textAlign: 'center', padding: '20px' }}>
-                  <h3 style={{ color: 'var(--success-color)', marginBottom: '15px' }}>Thank you for your review!</h3>
-                  <p>Your feedback has been submitted successfully.</p>
-                  <p>Redirecting to products page...</p>
+
+      <main className="flex-grow container mx-auto px-4 md:px-8 py-12 md:py-20">
+        <div className="max-w-2xl mx-auto">
+          <div className="text-center mb-12">
+            <h1 className="text-3xl md:text-4xl font-light tracking-tight text-zinc-900 mb-4">Share Your Experience</h1>
+            <p className="text-zinc-500 font-light">
+              Your reviews help others make better choices. Be honest, be detailed.
+            </p>
+          </div>
+
+          <div className="bg-white">
+            {submitSuccess ? (
+              <div className="text-center py-16 px-6 bg-zinc-50 rounded-lg border border-zinc-100">
+                <div className="flex justify-center mb-6">
+                  <div className="h-16 w-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center">
+                    <CheckCircle2 className="h-8 w-8" />
+                  </div>
                 </div>
-              ) : (
-                <form onSubmit={handleSubmit}>
-                  <div className="form-group">
-                    <label htmlFor="productId" className="form-label">Select Product</label>
-                    <select
-                      id="productId"
-                      name="productId"
-                      className="form-select"
+                <h3 className="text-2xl font-light text-zinc-900 mb-2">Thank you!</h3>
+                <p className="text-zinc-500 mb-6">Your review has been submitted successfully.</p>
+                <p className="text-sm text-zinc-400">Redirecting to products...</p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-8">
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="productId">Select Product</Label>
+                    <Select
+                      onValueChange={handleProductChange}
                       value={formData.productId}
-                      onChange={handleInputChange}
                       disabled={isLoading}
                     >
-                      <option value="">-- Select a product --</option>
-                      {products.map(product => (
-                        <option key={product.id} value={product.id}>
-                          {product.title}
-                        </option>
+                      <SelectTrigger className={formErrors.productId ? "border-red-500" : ""}>
+                        <SelectValue placeholder={isLoading ? "Loading products..." : "Select a product"} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {products.map(product => (
+                          <SelectItem key={product.id} value={product.id}>
+                            {product.title}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    {formErrors.productId && <p className="text-sm text-red-500">{formErrors.productId}</p>}
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label>Rating</Label>
+                    <div className="flex gap-2">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <button
+                          key={star}
+                          type="button"
+                          onClick={() => handleRatingChange(star)}
+                          className={`p-2 rounded-md transition-all ${formData.rating >= star ? 'text-yellow-500 bg-yellow-50' : 'text-zinc-300 hover:bg-zinc-50'
+                            }`}
+                        >
+                          <Star className={`h-6 w-6 ${formData.rating >= star ? 'fill-current' : ''}`} />
+                        </button>
                       ))}
-                    </select>
-                    {formErrors.productId && <div style={{ color: 'var(--error-color)', fontSize: '14px', marginTop: '5px' }}>{formErrors.productId}</div>}
+                    </div>
+                    {formErrors.rating && <p className="text-sm text-red-500">{formErrors.rating}</p>}
                   </div>
-                  
-                  <div className="form-group">
-                    <label htmlFor="rating" className="form-label">Rating</label>
-                    <select
-                      id="rating"
-                      name="rating"
-                      className="form-select"
-                      value={formData.rating}
-                      onChange={(e) => handleRatingChange(Number(e.target.value))}
-                    >
-                      <option value="0">-- Select a rating --</option>
-                      {[5, 4, 3, 2, 1].map(rating => (
-                        <option key={rating} value={rating}>
-                          {rating} star{rating !== 1 ? 's' : ''}
-                        </option>
-                      ))}
-                    </select>
-                    {formErrors.rating && <div style={{ color: 'var(--error-color)', fontSize: '14px', marginTop: '5px' }}>{formErrors.rating}</div>}
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="name">Your Name</Label>
+                      <Input
+                        id="name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        className={formErrors.name ? "border-red-500" : ""}
+                        placeholder="John Doe"
+                      />
+                      {formErrors.name && <p className="text-sm text-red-500">{formErrors.name}</p>}
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="email">Your Email</Label>
+                      <Input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        className={formErrors.email ? "border-red-500" : ""}
+                        placeholder="john@example.com"
+                      />
+                      {formErrors.email && <p className="text-sm text-red-500">{formErrors.email}</p>}
+                    </div>
                   </div>
-                  
-                  <div className="form-group">
-                    <label htmlFor="name" className="form-label">Your Name</label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      className="form-input"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                    />
-                    {formErrors.name && <div style={{ color: 'var(--error-color)', fontSize: '14px', marginTop: '5px' }}>{formErrors.name}</div>}
-                  </div>
-                  
-                  <div className="form-group">
-                    <label htmlFor="email" className="form-label">Your Email</label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      className="form-input"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                    />
-                    {formErrors.email && <div style={{ color: 'var(--error-color)', fontSize: '14px', marginTop: '5px' }}>{formErrors.email}</div>}
-                  </div>
-                  
-                  <div className="form-group">
-                    <label htmlFor="reviewText" className="form-label">Your Review</label>
-                    <textarea
+
+                  <div className="space-y-2">
+                    <Label htmlFor="reviewText">Your Review</Label>
+                    <Textarea
                       id="reviewText"
                       name="reviewText"
-                      className="form-textarea"
                       value={formData.reviewText}
                       onChange={handleInputChange}
+                      className={`min-h-[150px] resize-none ${formErrors.reviewText ? "border-red-500" : ""}`}
                       placeholder="Share your experience with this product..."
-                    ></textarea>
-                    {formErrors.reviewText && <div style={{ color: 'var(--error-color)', fontSize: '14px', marginTop: '5px' }}>{formErrors.reviewText}</div>}
+                    />
+                    {formErrors.reviewText && <p className="text-sm text-red-500">{formErrors.reviewText}</p>}
                   </div>
-                  
-                  {formErrors.submit && <div style={{ color: 'var(--error-color)', fontSize: '14px', marginBottom: '15px' }}>{formErrors.submit}</div>}
-                  
-                  <button type="submit" className="btn" disabled={isSubmitting}>
-                    {isSubmitting ? 'Submitting...' : 'Submit Review'}
-                  </button>
-                </form>
-              )}
-            </div>
+                </div>
+
+                {formErrors.submit && (
+                  <div className="p-3 bg-red-50 border border-red-100 text-red-600 rounded-md text-sm">
+                    {formErrors.submit}
+                  </div>
+                )}
+
+                <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Submitting...
+                    </>
+                  ) : (
+                    'Submit Review'
+                  )}
+                </Button>
+              </form>
+            )}
           </div>
-        </section>
+        </div>
       </main>
-      
+
       <Footer />
-    </>
+    </div>
   );
 };
 

@@ -4,7 +4,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
-import { Loader2, ArrowLeft, ShoppingBag } from "lucide-react";
+import { Loader2, ShoppingBag } from "lucide-react";
 import happyCustomer from "../assets/happy_customer.png";
 
 const Login = () => {
@@ -185,11 +185,7 @@ const Login = () => {
             </Link>
           </div>
 
-          <div className="text-center">
-            <Link to="/" className="text-xs text-muted-foreground hover:text-foreground flex items-center justify-center gap-1 transition-colors">
-              <ArrowLeft className="h-3 w-3" /> Back to Store
-            </Link>
-          </div>
+
         </div>
       </div>
     </div>
