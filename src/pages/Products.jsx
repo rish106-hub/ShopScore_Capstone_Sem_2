@@ -7,7 +7,7 @@ import { fetchAllProducts } from '../api/productApi';
 import { getCombinedRating } from '../api/productApi';
 import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
-import { Search, SlidersHorizontal, Star, ArrowUpDown } from "lucide-react";
+import { Search, ArrowUpDown } from "lucide-react";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -58,93 +58,83 @@ const Products = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-white text-zinc-950 font-sans selection:bg-zinc-100">
       <Navbar />
-      <main className="flex-1 container py-8 px-4 md:px-6">
-        <div className="flex flex-col gap-6">
-          <div className="flex flex-col gap-2">
-            <h1 className="text-3xl font-bold tracking-tight">All Products</h1>
-            <p className="text-muted-foreground">
-              Browse our collection of premium products.
-            </p>
-          </div>
+      <main className="container mx-auto px-4 md:px-8 py-12">
+        <div className="flex flex-col gap-12">
+          {/* Minimal Header Section */}
+          <div className="flex flex-col md:flex-row justify-between items-end gap-6 border-b border-zinc-100 pb-8">
+            <div className="space-y-2 max-w-lg">
+              <h1 className="text-4xl font-light tracking-tight text-zinc-900">Collection</h1>
+              <p className="text-zinc-500 font-light text-lg">
+                Curated essentials for the modern lifestyle.
+              </p>
+            </div>
 
-          {/* Filters & Search Bar */}
-          <div className="sticky top-20 z-30 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 py-4 border-b">
-            <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-              <div className="relative w-full md:w-96">
-                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                <Input
-                  type="search"
-                  placeholder="Search products..."
-                  className="pl-9 bg-secondary/50 border-transparent focus:border-primary transition-all duration-200"
+            {/* Clean Search & Filter Actions */}
+            <div className="flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto">
+              <div className="relative w-full sm:w-64 group">
+                <Search className="absolute left-0 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-400 group-focus-within:text-zinc-800 transition-colors" />
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  className="w-full bg-transparent border-b border-zinc-200 py-2 pl-6 text-sm outline-none focus:border-zinc-800 transition-colors placeholder:text-zinc-400"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
               </div>
 
-              <div className="flex items-center gap-2 w-full md:w-auto overflow-x-auto pb-2 md:pb-0 no-scrollbar">
-                <div className="flex items-center border rounded-md p-1 bg-secondary/30">
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1">
                   {[1, 2, 3, 4, 5].map((star) => (
                     <button
                       key={star}
                       onClick={() => handleRatingFilter(star)}
-                      className={`p-2 rounded-sm transition-all ${star <= ratingFilter
-                          ? 'text-yellow-500 bg-background shadow-sm'
-                          : 'text-muted-foreground hover:text-yellow-500/70'
+                      className={`w-6 h-6 flex items-center justify-center rounded-full text-xs transition-all ${star <= ratingFilter
+                          ? 'bg-zinc-900 text-white'
+                          : 'bg-zinc-100 text-zinc-400 hover:bg-zinc-200'
                         }`}
-                      title={`Filter by ${star} stars`}
                     >
-                      <Star className={`h-4 w-4 ${star <= ratingFilter ? 'fill-current' : ''}`} />
+                      {star}
                     </button>
                   ))}
                 </div>
 
-                <Button
-                  variant="outline"
-                  size="sm"
+                <button
                   onClick={handleSort}
-                  className="ml-auto whitespace-nowrap gap-2"
+                  className="flex items-center gap-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors ml-4"
                 >
-                  <ArrowUpDown className="h-4 w-4" />
-                  {sortOrder === 'desc' ? 'Highest Rated' : 'Lowest Rated'}
-                </Button>
+                  <ArrowUpDown className="h-3 w-3" />
+                  {sortOrder === 'desc' ? 'Sort' : 'Sort'}
+                </button>
               </div>
             </div>
           </div>
 
-          {/* Products Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {/* Minimal Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-16">
             {isLoading ? (
-              // Skeleton loading state
               Array.from({ length: 8 }).map((_, i) => (
-                <div key={i} className="space-y-4">
-                  <div className="aspect-square rounded-xl bg-secondary/50 animate-pulse" />
+                <div key={i} className="space-y-4 animate-pulse">
+                  <div className="aspect-[3/4] bg-zinc-100" />
                   <div className="space-y-2">
-                    <div className="h-4 w-3/4 rounded bg-secondary/50 animate-pulse" />
-                    <div className="h-4 w-1/2 rounded bg-secondary/50 animate-pulse" />
+                    <div className="h-4 w-2/3 bg-zinc-100" />
+                    <div className="h-4 w-1/3 bg-zinc-100" />
                   </div>
                 </div>
               ))
             ) : filteredProducts.length === 0 ? (
-              <div className="col-span-full text-center py-20">
-                <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-secondary mb-4">
-                  <Search className="h-6 w-6 text-muted-foreground" />
-                </div>
-                <h3 className="text-lg font-medium">No products found</h3>
-                <p className="text-muted-foreground mt-1">
-                  Try adjusting your search or filters.
-                </p>
-                <Button
-                  variant="link"
+              <div className="col-span-full text-center py-32">
+                <p className="text-zinc-400 text-lg font-light">No products found.</p>
+                <button
                   onClick={() => {
                     setSearchTerm('');
                     setRatingFilter(0);
                   }}
-                  className="mt-2"
+                  className="mt-4 text-sm underline underline-offset-4 text-zinc-900 hover:text-zinc-600 transition-colors"
                 >
-                  Clear all filters
-                </Button>
+                  Clear filters
+                </button>
               </div>
             ) : (
               filteredProducts.map((product) => (
