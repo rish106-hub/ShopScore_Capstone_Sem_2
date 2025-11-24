@@ -22,8 +22,12 @@ const Products = () => {
     setRatingFilter(rating === ratingFilter ? 0 : rating);
   };
 
-  const handleSort = () => {
-    setSortOrder(sortOrder === 'desc' ? 'asc' : 'desc');
+  const handleSort = (type) => {
+    if (type === 'price') {
+      setSortOrder(prev => prev === 'price_asc' ? 'price_desc' : 'price_asc');
+    } else if (type === 'rating') {
+      setSortOrder(prev => prev === 'rating_asc' ? 'rating_desc' : 'rating_asc');
+    }
   };
 
   useEffect(() => {
@@ -36,10 +40,16 @@ const Products = () => {
     const sorted = [...filtered].sort((a, b) => {
       const aRate = getCombinedRating(a).rate;
       const bRate = getCombinedRating(b).rate;
-      if (sortOrder === 'asc') {
+      if (sortOrder === 'price_asc') {
+        return a.price - b.price;
+      } else if (sortOrder === 'price_desc') {
+        return b.price - a.price;
+      } else if (sortOrder === 'rating_asc') {
         return aRate - bRate;
+      } else if (sortOrder === 'rating_desc') {
+        return bRate - aRate;
       }
-      return bRate - aRate;
+      return 0;
     });
 
     setFilteredProducts(sorted);
@@ -62,51 +72,64 @@ const Products = () => {
       <Navbar />
       <main className="container mx-auto px-4 md:px-8 py-12">
         <div className="flex flex-col gap-12">
-          {/* Minimal Header Section */}
-          <div className="flex flex-col md:flex-row justify-between items-end gap-6 border-b border-zinc-100 pb-8">
-            <div className="space-y-2 max-w-lg">
-              <h1 className="text-4xl font-light tracking-tight text-zinc-900">Collection</h1>
-              <p className="text-zinc-500 font-light text-lg">
-                Curated essentials for the modern lifestyle.
-              </p>
-            </div>
-
-            {/* Clean Search & Filter Actions */}
-            <div className="flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto">
-              <div className="relative w-full sm:w-64 group">
-                <Search className="absolute left-0 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-400 group-focus-within:text-zinc-800 transition-colors" />
-                <input
-                  type="text"
-                  placeholder="Search..."
-                  className="w-full bg-transparent border-b border-zinc-200 py-2 pl-6 text-sm outline-none focus:border-zinc-800 transition-colors placeholder:text-zinc-400"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
+          {/* Sticky Header Section */}
+          <div className="sticky top-16 z-30 bg-white/80 backdrop-blur-md border-b border-zinc-100 py-6 -mx-4 px-4 md:-mx-8 md:px-8 transition-all duration-300">
+            <div className="flex flex-col md:flex-row justify-between items-end gap-6">
+              <div className="space-y-1 max-w-lg">
+                <h1 className="text-3xl font-light tracking-tight text-zinc-900">Collection</h1>
+                <p className="text-zinc-500 font-light text-sm">
+                  {filteredProducts.length} products available
+                </p>
               </div>
 
-              <div className="flex items-center gap-2">
-                <div className="flex items-center gap-1">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <button
-                      key={star}
-                      onClick={() => handleRatingFilter(star)}
-                      className={`w-6 h-6 flex items-center justify-center rounded-full text-xs transition-all ${star <= ratingFilter
-                          ? 'bg-zinc-900 text-white'
-                          : 'bg-zinc-100 text-zinc-400 hover:bg-zinc-200'
-                        }`}
-                    >
-                      {star}
-                    </button>
-                  ))}
+              {/* Clean Search & Filter Actions */}
+              <div className="flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto">
+                <div className="relative w-full sm:w-64 group">
+                  <Search className="absolute left-0 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-400 group-focus-within:text-zinc-800 transition-colors" />
+                  <input
+                    type="text"
+                    placeholder="Search products..."
+                    className="w-full bg-transparent border-b border-zinc-200 py-2 pl-6 text-sm outline-none focus:border-zinc-800 transition-colors placeholder:text-zinc-400"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
                 </div>
 
-                <button
-                  onClick={handleSort}
-                  className="flex items-center gap-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors ml-4"
-                >
-                  <ArrowUpDown className="h-3 w-3" />
-                  {sortOrder === 'desc' ? 'Sort' : 'Sort'}
-                </button>
+                <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-1 bg-zinc-50 p-1 rounded-full">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button
+                        key={star}
+                        onClick={() => handleRatingFilter(star)}
+                        className={`w-7 h-7 flex items-center justify-center rounded-full text-xs font-medium transition-all ${star <= ratingFilter
+                          ? 'bg-black text-white shadow-sm'
+                          : 'text-zinc-400 hover:bg-zinc-200 hover:text-zinc-600'
+                          }`}
+                      >
+                        {star}
+                      </button>
+                    ))}
+                  </div>
+
+                  <div className="flex items-center gap-2 border-l border-zinc-200 pl-4">
+                    <button
+                      onClick={() => handleSort('price')}
+                      className={`flex items-center gap-1.5 text-xs font-medium transition-colors px-3 py-1.5 rounded-full ${sortOrder.includes('price') ? 'bg-zinc-100 text-zinc-900' : 'text-zinc-500 hover:text-zinc-900'
+                        }`}
+                    >
+                      Price
+                      <ArrowUpDown className="h-3 w-3" />
+                    </button>
+                    <button
+                      onClick={() => handleSort('rating')}
+                      className={`flex items-center gap-1.5 text-xs font-medium transition-colors px-3 py-1.5 rounded-full ${sortOrder.includes('rating') ? 'bg-zinc-100 text-zinc-900' : 'text-zinc-500 hover:text-zinc-900'
+                        }`}
+                    >
+                      Rating
+                      <ArrowUpDown className="h-3 w-3" />
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

@@ -21,7 +21,7 @@ const Navbar = () => {
     try {
       document.documentElement.classList.remove('dark');
       localStorage.removeItem('theme');
-    } catch {}
+    } catch { }
   }, []);
 
   return (
@@ -83,7 +83,7 @@ const Navbar = () => {
                 </Link>
               </li>
             )}
-            
+
             {currentUser && (
               <li
                 className="nav-item relative flex items-center"
@@ -106,13 +106,24 @@ const Navbar = () => {
         </nav>
 
         {/* Mobile menu */}
-        {isMenuOpen && (
-          <div className="md:hidden px-2 pb-3 pt-2 space-y-1">
-            <Link to="/" className="block px-3 py-2 rounded-md text-sm hover:bg-secondary" onClick={() => setIsMenuOpen(false)}>Home</Link>
-            <Link to="/products" className="block px-3 py-2 rounded-md text-sm hover:bg-secondary" onClick={() => setIsMenuOpen(false)}>Products</Link>
-            <Link to="/submit-review" className="block px-3 py-2 rounded-md text-sm hover:bg-secondary" onClick={() => setIsMenuOpen(false)}>Submit Review</Link>
-            <Link to="/about" className="block px-3 py-2 rounded-md text-sm hover:bg-secondary" onClick={() => setIsMenuOpen(false)}>About</Link>
-            <div className="px-3 py-2 flex items-center gap-2">
+        <div className={`md:hidden fixed inset-0 z-50 bg-white transform transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+          <div className="flex flex-col h-full">
+            <div className="flex items-center justify-between p-4 border-b">
+              <span className="text-xl font-semibold">Menu</span>
+              <button
+                onClick={() => setIsMenuOpen(false)}
+                className="p-2 hover:bg-zinc-100 rounded-full"
+              >
+                ✕
+              </button>
+            </div>
+            <div className="flex-1 overflow-y-auto py-4 px-4 space-y-2">
+              <Link to="/" className="block px-4 py-3 rounded-lg text-lg hover:bg-zinc-50" onClick={() => setIsMenuOpen(false)}>Home</Link>
+              <Link to="/products" className="block px-4 py-3 rounded-lg text-lg hover:bg-zinc-50" onClick={() => setIsMenuOpen(false)}>Products</Link>
+              <Link to="/submit-review" className="block px-4 py-3 rounded-lg text-lg hover:bg-zinc-50" onClick={() => setIsMenuOpen(false)}>Submit Review</Link>
+              <Link to="/about" className="block px-4 py-3 rounded-lg text-lg hover:bg-zinc-50" onClick={() => setIsMenuOpen(false)}>About</Link>
+            </div>
+            <div className="p-4 border-t bg-zinc-50">
               {currentUser ? (
                 <Button
                   onClick={() => {
@@ -120,19 +131,19 @@ const Navbar = () => {
                     logout();
                     navigate('/login');
                   }}
-                  size="sm"
+                  size="lg"
                   className="w-full"
                 >
                   Logout
                 </Button>
               ) : (
                 <Link to="/login" onClick={() => setIsMenuOpen(false)}>
-                  <Button size="sm" variant="outline" className="w-full">Login</Button>
+                  <Button size="lg" className="w-full">Login</Button>
                 </Link>
               )}
             </div>
           </div>
-        )}
+        </div>
       </div>
       {isCartOpen && <Cart onClose={() => setIsCartOpen(false)} />}
     </header>
