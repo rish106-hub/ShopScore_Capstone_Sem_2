@@ -40,7 +40,7 @@ const Login = () => {
   return (
     <div className="w-full h-screen lg:grid lg:grid-cols-2 overflow-hidden">
       {/* Left Side - Decorative */}
-      <div className="relative hidden lg:flex flex-col justify-between bg-zinc-900 p-10 text-white dark:border-r">
+      <div className="relative hidden lg:flex flex-col justify-between p-10 text-white dark:border-r">
         <div className="flex items-center gap-2 font-medium text-lg z-10">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
             <ShoppingBag className="h-5 w-5 text-white" />
@@ -69,7 +69,7 @@ const Login = () => {
         <img
           src={authBackground}
           alt="Background"
-          className="absolute inset-0 -z-10 h-full w-full object-cover opacity-50"
+          className="absolute inset-0 -z-10 h-full w-full object-cover"
         />
       </div>
 
