@@ -6,6 +6,7 @@ import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Loader2, ShoppingBag } from "lucide-react";
 import happyCustomer from "../assets/happy_customer.png";
+import authBackground from "../assets/auth-background.png";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -64,14 +65,17 @@ const Login = () => {
             </footer>
           </blockquote>
         </div>
-        <div className="absolute inset-0 bg-zinc-900 opacity-50 z-0" />
-        {/* Abstract background pattern */}
-        <div className="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"></div>
+        <div className="absolute inset-0 bg-zinc-900/40 z-0" />
+        <img
+          src={authBackground}
+          alt="Background"
+          className="absolute inset-0 -z-10 h-full w-full object-cover opacity-50"
+        />
       </div>
 
       {/* Right Side - Form */}
       <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-background relative z-10">
-        <div className="mx-auto grid w-full max-w-[400px] gap-6">
+        <div className="mx-auto grid w-full max-w-[400px] gap-6 animate-in fade-in zoom-in-95 duration-500">
           <div className="flex flex-col space-y-2 text-center">
             <div className="flex justify-center lg:hidden mb-4">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-primary-foreground">
@@ -84,7 +88,7 @@ const Login = () => {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="grid gap-4">
+          <form onSubmit={handleSubmit} className="grid gap-4 animate-in slide-in-from-bottom-8 duration-700 delay-100 fill-mode-both">
             <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
               <Input
