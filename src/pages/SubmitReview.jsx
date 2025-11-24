@@ -176,20 +176,20 @@ const SubmitReview = () => {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-8">
-                <div className="space-y-4">
+                <div className="space-y-6">
                   <div className="space-y-2">
-                    <Label htmlFor="productId">Select Product</Label>
+                    <Label htmlFor="productId" className="text-base">Select Product</Label>
                     <Select
                       onValueChange={handleProductChange}
                       value={formData.productId}
                       disabled={isLoading}
                     >
-                      <SelectTrigger className={formErrors.productId ? "border-red-500" : ""}>
+                      <SelectTrigger className={`h-12 text-base ${formErrors.productId ? "border-red-500" : ""}`}>
                         <SelectValue placeholder={isLoading ? "Loading products..." : "Select a product"} />
                       </SelectTrigger>
                       <SelectContent>
                         {products.map(product => (
-                          <SelectItem key={product.id} value={String(product.id)}>
+                          <SelectItem key={product.id} value={String(product.id)} className="text-base py-3">
                             {product.title}
                           </SelectItem>
                         ))}
@@ -198,47 +198,58 @@ const SubmitReview = () => {
                     {formErrors.productId && <p className="text-sm text-red-500">{formErrors.productId}</p>}
                   </div>
 
-                  <div className="space-y-2">
-                    <Label>Rating</Label>
-                    <div className="flex gap-2">
-                      {[1, 2, 3, 4, 5].map((star) => (
-                        <button
-                          key={star}
-                          type="button"
-                          onClick={() => handleRatingChange(star)}
-                          className={`p-2 rounded-md transition-all ${formData.rating >= star ? 'text-yellow-500 bg-yellow-50' : 'text-zinc-300 hover:bg-zinc-50'
-                            }`}
-                        >
-                          <Star className={`h-6 w-6 ${formData.rating >= star ? 'fill-current' : ''}`} />
-                        </button>
-                      ))}
+                  <div className="space-y-3">
+                    <Label className="text-base">Rating</Label>
+                    <div className="flex items-center gap-4">
+                      <div className="flex gap-1">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <button
+                            key={star}
+                            type="button"
+                            onClick={() => handleRatingChange(star)}
+                            className={`p-2 rounded-full transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary/20 ${formData.rating >= star
+                                ? 'text-yellow-400 bg-yellow-400/10'
+                                : 'text-zinc-200 hover:bg-zinc-100 hover:text-zinc-300'
+                              }`}
+                          >
+                            <Star className={`h-8 w-8 ${formData.rating >= star ? 'fill-current' : ''}`} />
+                          </button>
+                        ))}
+                      </div>
+                      <span className="text-sm font-medium text-zinc-500 min-w-[80px]">
+                        {formData.rating === 1 && "Terrible"}
+                        {formData.rating === 2 && "Bad"}
+                        {formData.rating === 3 && "Okay"}
+                        {formData.rating === 4 && "Good"}
+                        {formData.rating === 5 && "Excellent"}
+                      </span>
                     </div>
                     {formErrors.rating && <p className="text-sm text-red-500">{formErrors.rating}</p>}
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <Label htmlFor="name">Your Name</Label>
+                      <Label htmlFor="name" className="text-base">Your Name</Label>
                       <Input
                         id="name"
                         name="name"
                         value={formData.name}
                         onChange={handleInputChange}
-                        className={formErrors.name ? "border-red-500" : ""}
+                        className={`h-12 text-base ${formErrors.name ? "border-red-500" : ""}`}
                         placeholder="John Doe"
                       />
                       {formErrors.name && <p className="text-sm text-red-500">{formErrors.name}</p>}
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="email">Your Email</Label>
+                      <Label htmlFor="email" className="text-base">Your Email</Label>
                       <Input
                         type="email"
                         id="email"
                         name="email"
                         value={formData.email}
                         onChange={handleInputChange}
-                        className={formErrors.email ? "border-red-500" : ""}
+                        className={`h-12 text-base ${formErrors.email ? "border-red-500" : ""}`}
                         placeholder="john@example.com"
                       />
                       {formErrors.email && <p className="text-sm text-red-500">{formErrors.email}</p>}
@@ -246,13 +257,13 @@ const SubmitReview = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="reviewText">Your Review</Label>
+                    <Label htmlFor="reviewText" className="text-base">Your Review</Label>
                     <Textarea
                       id="reviewText"
                       name="reviewText"
                       value={formData.reviewText}
                       onChange={handleInputChange}
-                      className={`min-h-[150px] p-4 text-base ${formErrors.reviewText ? "border-red-500" : ""}`}
+                      className={`min-h-[150px] p-4 text-base resize-none ${formErrors.reviewText ? "border-red-500" : ""}`}
                       placeholder="Share your experience with this product..."
                     />
                     {formErrors.reviewText && <p className="text-sm text-red-500">{formErrors.reviewText}</p>}
