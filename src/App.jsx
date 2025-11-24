@@ -8,6 +8,7 @@ import About from './pages/About';
 import NotFound from './pages/NotFound';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import AuthLayout from './components/AuthLayout';
 import { AuthProvider } from './contexts/AuthContext';
 import { CartProvider } from './contexts/CartContext';
 import { useAuth } from './contexts/AuthContext';
@@ -29,8 +30,10 @@ const App = () => {
       <CartProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
+            <Route element={<AuthLayout />}>
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+            </Route>
             <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
             <Route path="/products" element={<PrivateRoute><Products /></PrivateRoute>} />
             <Route path="/submit-review" element={<PrivateRoute><SubmitReview /></PrivateRoute>} />
