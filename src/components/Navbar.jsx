@@ -2,12 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useCart } from '../contexts/CartContext';
-import Cart from './Cart';
 import { Button } from './ui/button';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isCartOpen, setIsCartOpen] = useState(false);
   const { currentUser, logout } = useAuth();
   const { cartCount } = useCart();
   const navigate = useNavigate();
@@ -89,7 +87,7 @@ const Navbar = () => {
                 className="nav-item relative flex items-center"
               >
                 <button
-                  onClick={() => setIsCartOpen(!isCartOpen)}
+                  onClick={() => navigate('/cart')}
                   className="relative inline-flex items-center justify-center rounded-md border border-transparent px-2 py-2 text-base hover:bg-secondary transition"
                   aria-label="Cart"
                 >
@@ -145,7 +143,6 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      {isCartOpen && <Cart onClose={() => setIsCartOpen(false)} />}
     </header>
   );
 };

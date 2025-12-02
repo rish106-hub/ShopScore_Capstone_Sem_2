@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
 
   const SESSION_KEY = "user";
   const SESSION_EXPIRES_AT_KEY = "session_expires_at";
-  const SESSION_MINUTES = 20; 
+  const SESSION_MINUTES = 20;
 
   const setSessionExpiry = () => {
     const expiresAt = Date.now() + SESSION_MINUTES * 60 * 1000;
@@ -134,7 +134,13 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={value}>
-      {!loading && children}
+      {loading ? (
+        <div className="flex items-center justify-center h-screen w-screen bg-white">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black"></div>
+        </div>
+      ) : (
+        children
+      )}
     </AuthContext.Provider>
   );
 };

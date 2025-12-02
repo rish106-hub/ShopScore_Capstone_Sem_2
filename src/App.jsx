@@ -8,6 +8,8 @@ import About from './pages/About';
 import NotFound from './pages/NotFound';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import CartPage from './pages/CartPage';
+import CheckoutPage from './pages/CheckoutPage';
 import AuthLayout from './components/AuthLayout';
 import { AuthProvider } from './contexts/AuthContext';
 import { CartProvider } from './contexts/CartContext';
@@ -36,6 +38,8 @@ const App = () => {
             </Route>
             <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
             <Route path="/products" element={<PrivateRoute><Products /></PrivateRoute>} />
+            <Route path="/cart" element={<CartPage />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="/submit-review" element={<PrivateRoute><SubmitReview /></PrivateRoute>} />
             <Route path="/about" element={<PrivateRoute><About /></PrivateRoute>} />
             <Route path="*" element={<NotFound />} />
