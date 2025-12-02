@@ -9,6 +9,8 @@ import { Button } from '../components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../components/ui/card';
 import { Separator } from '../components/ui/separator';
 
+import { sendOrderConfirmationEmail } from '../utils/emailService';
+
 const CheckoutPage = () => {
     const { cart, subtotal, deliveryFee, total, clearCart } = useCart();
     const navigate = useNavigate();
@@ -31,12 +33,27 @@ const CheckoutPage = () => {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
 
         // Simulate API call
         await new Promise(resolve => setTimeout(resolve, 2000));
+
+        const orderNumber = `#ORD-${Math.floor(Math.random() * 100000)}`;
+        const deliveryDate = '3-5 Business Days';
+
+        // Send Confirmation Email
+        await sendOrderConfirmationEmail({
+            firstName: formData.firstName,
+            email: formData.email,
+            orderNumber,
+            totalAmount: getFormattedINRPrice(total),
+            deliveryDate,
+            items: cart
+        });
 
         setLoading(false);
         setIsOrderPlaced(true);
@@ -163,7 +180,7 @@ const CheckoutPage = () => {
                                     <Input
                                         id="address"
                                         name="address"
-                                        placeholder="123 Main St, Apt 4B"
+                                        placeholder="123 Main St"
                                         required
                                         value={formData.address}
                                         onChange={handleInputChange}
