@@ -10,6 +10,8 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../co
 import { Separator } from '../components/ui/separator';
 
 import { sendOrderConfirmationEmail } from '../utils/emailService';
+import { useAuth } from '../contexts/AuthContext';
+import { toast } from 'sonner';
 
 const CheckoutPage = () => {
     const { cart, subtotal, deliveryFee, total, clearCart } = useCart();
@@ -35,29 +37,74 @@ const CheckoutPage = () => {
 
 
 
+    const { currentUser } = useAuth();
+
+    // Auto-fill form if user has saved address
+    React.useEffect(() => {
+        if (currentUser && currentUser.shippingInfo) {
+            setFormData(prev => ({
+                ...prev,
+                ...currentUser.shippingInfo
+            }));
+        }
+    }, [currentUser]);
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (!currentUser) {
+            toast.error("Please login to place an order");
+            navigate('/login');
+            return;
+        }
+
         setLoading(true);
 
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        try {
+            const response = await fetch(`${API_URL}/api/orders`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    items: cart,
+                    shippingInfo: formData,
+                    paymentMethod: 'COD', // Currently hardcoded to COD as per UI
+                    totalAmount: total
+                })
+            });
 
-        const orderNumber = `#ORD-${Math.floor(Math.random() * 100000)}`;
-        const deliveryDate = '3-5 Business Days';
+            const data = await response.json();
 
-        // Send Confirmation Email
-        await sendOrderConfirmationEmail({
-            firstName: formData.firstName,
-            email: formData.email,
-            orderNumber,
-            totalAmount: getFormattedINRPrice(total),
-            deliveryDate,
-            items: cart
-        });
+            if (!response.ok) {
+                throw new Error(data.message || 'Failed to place order');
+            }
 
-        setLoading(false);
-        setIsOrderPlaced(true);
-        // clearCart(); // Uncomment to clear cart after successful order in real app
+            const orderNumber = data.data.id; // Use backend ID
+            const deliveryDate = '3-5 Business Days';
+
+            // Send Confirmation Email
+            await sendOrderConfirmationEmail({
+                firstName: formData.firstName,
+                email: formData.email,
+                orderNumber: `#ORD-${orderNumber.slice(0, 8).toUpperCase()}`,
+                totalAmount: getFormattedINRPrice(total),
+                deliveryDate,
+                items: cart
+            });
+
+            setLoading(false);
+            setIsOrderPlaced(true);
+            clearCart();
+            toast.success("Order placed successfully!");
+
+        } catch (error) {
+            console.error('Order placement error:', error);
+            toast.error(error.message || "Failed to place order. Please try again.");
+            setLoading(false);
+        }
     };
 
     if (cart.length === 0 && !isOrderPlaced) {

@@ -34,6 +34,8 @@ export const AuthProvider = ({ children }) => {
       events.forEach((ev) => window.removeEventListener(ev, refreshOnActivity));
     };
   }, [currentUser]);
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
   useEffect(() => {
     const bootstrapAuth = async () => {
       try {
@@ -48,7 +50,7 @@ export const AuthProvider = ({ children }) => {
         }
 
         // Otherwise, verify with backend and initialize a fresh 20-minute session window
-        const response = await fetch("https://shopscore.onrender.com/api/auth/me", {
+        const response = await fetch(`${API_URL}/api/auth/me`, {
           method: "GET",
           credentials: "include",
         });
@@ -75,7 +77,7 @@ export const AuthProvider = ({ children }) => {
 
   // 🔐 Login: call backend and set user from response
   const login = async (email, password) => {
-    const response = await fetch("https://shopscore.onrender.com/api/auth/login", {
+    const response = await fetch(`${API_URL}/api/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
@@ -95,7 +97,7 @@ export const AuthProvider = ({ children }) => {
     return data.user;
   };
   const signup = async (name, email, phone, password) => {
-    const response = await fetch("https://shopscore.onrender.com/api/auth/signup", {
+    const response = await fetch(`${API_URL}/api/auth/signup`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
@@ -111,7 +113,7 @@ export const AuthProvider = ({ children }) => {
   // 🚪 Logout: clears backend cookie + local state
   const logout = async () => {
     try {
-      await fetch("https://shopscore.onrender.com/api/auth/logout", {
+      await fetch(`${API_URL}/api/auth/logout`, {
         method: "POST",
         credentials: "include",
       });

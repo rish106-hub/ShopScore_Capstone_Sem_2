@@ -1,13 +1,13 @@
-const BASE_URL = 'https://fakestoreapi.com';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
 export const fetchAllProducts = async () => {
   try {
-    const response = await fetch(`${BASE_URL}/products`);
+    const response = await fetch(`${API_URL}/api/products`);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
-    const products = await response.json();
-    return products;
+    const data = await response.json();
+    return data.data.products || [];
   } catch (error) {
     console.error('Error fetching products:', error);
     return [];
@@ -16,12 +16,12 @@ export const fetchAllProducts = async () => {
 
 export const fetchProductById = async (id) => {
   try {
-    const response = await fetch(`${BASE_URL}/products/${id}`);
+    const response = await fetch(`${API_URL}/api/products/${id}`);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
-    const product = await response.json();
-    return product;
+    const data = await response.json();
+    return data.data.product || null;
   } catch (error) {
     console.error(`Error fetching product with id ${id}:`, error);
     return null;

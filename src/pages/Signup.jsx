@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
@@ -38,6 +39,8 @@ const Signup = () => {
     return true;
   };
 
+  const { signup } = useAuth();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
@@ -45,24 +48,7 @@ const Signup = () => {
     setError("");
 
     try {
-      const response = await fetch("https://shopscore.onrender.com/api/auth/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          password: formData.password,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || "Signup failed");
-      }
-
+      await signup(formData.name, formData.email, formData.phone, formData.password);
       alert("Signup successful! Please log in.");
       navigate("/login");
     } catch (error) {
